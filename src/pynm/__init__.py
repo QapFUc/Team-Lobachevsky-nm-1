@@ -1,3 +1,4 @@
-import tkinter
-import matplotlib
+from .modules.ccalc import *
+from .modules.plot import *
+from .modules.gui import *
 
