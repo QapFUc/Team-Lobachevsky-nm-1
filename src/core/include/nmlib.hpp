@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
+#include <functional>
 
 typedef unsigned long uint;
+typedef std::vector<tableRow> resultTable; // table for output
 
 struct tableRow {
 // one row of table for nm output (see actual task)
@@ -17,10 +19,6 @@ struct tableRow {
     float uvi;
 };
 
-struct resultTable {
-// output table (see actual task)
-    std::vector<tableRow> rows;
-};
 struct config {   
     // Left and right limits for x variable
     float x_min; 
@@ -38,7 +36,6 @@ struct config {
 
 /// @brief Namespace utils is needed to provide utilities that will be used in core functions
 namespace utils {
-
 /// @brief make config from python input
 config make_config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, float eps);
 
@@ -57,3 +54,9 @@ resultTable first_task_b(config cfg);
 
 resultTable second_task_a(config cfg);
 resultTable second_task_b(config cfg);
+
+/// @brief Function that runs given function w/ given configuration (needed to run w/ python)
+/// @param func function to run
+/// @param cfg configuration
+/// @return integer depending on the success
+int run(std::function<resultTable(config)> func, config cfg);
