@@ -1,11 +1,12 @@
 #pragma once
 #include <vector>
 #include <functional>
+#include <map>
 
-typedef unsigned long uint;
-typedef std::vector<tableRow> resultTable; // table for output
+#include "logger.hpp"
 
 struct tableRow {
+/// @todo write the constructor for init
 // one row of table for nm output (see actual task)
     float xi;
     float vi;
@@ -19,7 +20,10 @@ struct tableRow {
     float uvi;
 };
 
+typedef std::vector<tableRow> resultTable; // table for output
+
 struct config {   
+    config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, float eps) : x_min(x_min), x_max(x_max), x_0(x_0), u_0(u_0), step(step), N_max(N_max), eps(eps) {}
     // Left and right limits for x variable
     float x_min; 
     float x_max;
@@ -34,15 +38,6 @@ struct config {
     float eps = 0.f; // Epsilon for local error control
 };
 
-/// @brief Namespace utils is needed to provide utilities that will be used in core functions
-namespace utils {
-/// @brief make config from python input
-config make_config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, float eps);
-
-/// @brief make output table for python
-/// @todo implementation for this func
-void make_out_from_table(resultTable result);
-} // namespace utils
 
 /// @brief  This is the core functions block. Each of them calculate one of examples from main task (see actual task) 
 /// @todo write an implementation for each one
@@ -55,8 +50,21 @@ resultTable first_task_b(config cfg);
 resultTable second_task_a(config cfg);
 resultTable second_task_b(config cfg);
 
-/// @brief Function that runs given function w/ given configuration (needed to run w/ python)
-/// @param func function to run
-/// @param cfg configuration
-/// @return integer depending on the success
-int run(std::function<resultTable(config)> func, config cfg);
+/// @brief Namespace utils is needed to provide utilities that will be used in core functions
+namespace utils {
+/// @brief make config from python input
+config make_config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, float eps);
+} // namespace utils
+
+/// @brief  Function that will be called from python. 
+extern "C" tableRow* run_from_python(char *func_name,    
+                                     float x_min, 
+                                     float x_max,
+                                     float x_0, 
+                                     float u_0,
+                                     float step,
+                                     uint N_max,
+                                     float eps,
+                                     uint *rowsCount); 
+// uint -> c_ulong in python
+// float -> c_float
