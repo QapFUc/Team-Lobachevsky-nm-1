@@ -12,7 +12,7 @@ struct tableRow {
     float vi;
     float v2i;
     float viv2i;
-    float localError;
+    float LE;
     uint hi;
     uint C1;
     uint C2;
