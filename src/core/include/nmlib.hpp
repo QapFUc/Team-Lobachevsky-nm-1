@@ -8,12 +8,15 @@
 struct tableRow {
 /// @todo write the constructor for init
 // one row of table for nm output (see actual task)
+    tableRow(float xi, float vi, float v2i, float viv2i,
+            float LE, float hi, uint C1, uint C2, float ui,
+            float uvi) : xi(xi), vi(vi), v2i(v2i), viv2i(viv2i), LE(LE), hi(hi), C1(C1), C2(C2), ui(ui), uvi(uvi);
     float xi;
     float vi;
     float v2i;
     float viv2i;
     float LE;
-    uint hi;
+    float hi;
     uint C1;
     uint C2;
     float ui;
@@ -35,6 +38,7 @@ struct config {
     float step; // step
     uint N_max; // Maximum num for iterations
 
+    bool LEC = 1; // Is there control for local error
     float eps = 0.f; // Epsilon for local error control
 };
 
@@ -54,6 +58,9 @@ resultTable second_task_b(config cfg);
 namespace utils {
 /// @brief make config from python input
 config make_config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, float eps);
+
+/// numerical method 
+resultTable RK4(std::function<float(float,float)> rhs, config cfg);
 } // namespace utils
 
 /// @brief  Function that will be called from python. 
