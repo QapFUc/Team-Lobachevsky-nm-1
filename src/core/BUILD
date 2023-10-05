@@ -7,7 +7,8 @@ cc_library(
 
 cc_library(
     name = "nmlib",
-    srcs = ["src/nmlib.cc"],
+    srcs = ["src/nmlib.cc",
+            "src/methods.cc"],
     hdrs = ["include/nmlib.hpp"],
     includes = ["include"],
     deps = ["logger"],
