@@ -30,7 +30,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
         vi1 = vi + stepi/6 +( k1 + 2 * k2 + 2 * k3 + k4 );
         // (xi,vi2)
         xi2 = xi;
-        vi2 = vi;
+        v2i = vi;
         for(int j = 0; j<=1; j++) {
             k1 =  rhs(xi ,v2i);
             k2 = rhs(xi+stepi2/2 ,vi + (stepi2/2) * k1);
@@ -46,16 +46,20 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
                 xi = xi1;
                 vi = vi1;
                 if (LE <= (eps/pow(2,4))) {
-                stepi = stepi / 2;
-                C1 += 1;
+                stepi = stepi * 2;
+                C2 += 1;
                 }
                 i++
             }
             if (LE > eps) {
-                stepi = stepi * 2;
-                C2 += 1;
+                stepi = stepi / 2;
+                C1 += 1;
                 flag = 0;
             }
+        }
+        else {
+            xi = xi1;
+            vi = vi1;
         }
         if (flag) {
             table.append(xi, vi, v2i, LE, stepi, C1, C2, 0, 0);
