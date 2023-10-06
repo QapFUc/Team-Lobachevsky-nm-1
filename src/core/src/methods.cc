@@ -17,8 +17,10 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
     float viv2i = 0;
     float stepi2 = cfg.step/2;
     float LE = 0;
+    bool flag = 1;
     i = 0
     while (xi <= cfg.x_max && i <= cfg.N_max) {
+        flag = 1;
         // (xi,vi)
         k1 =  rhs(xi ,vi);
         k2 = rhs(xi+stepi/2 ,vi + (stepi/2) * k1);
@@ -37,20 +39,26 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
             xi2 = xi2 + stepi2;
             v2i = v2i + stepi2/6 +( k1 + 2 * k2 + 2 * k3 + k4 );
         }
-        LE = (v2i -vi1)/(pow(2,4) - 1);
-        if (LE <= eps) {
-            xi = xi1;
-            vi = vi1;
-            table.append(xi, vi, v2i, LE, stepi, C1, C2, 0, 0);
-            if (LE <= (eps/pow(2,4))) {
-            stepi = stepi / 2;
-            C1 += 1;
+        // LEC
+        if (LEC) {
+            LE = (v2i -vi1)/(pow(2,4) - 1);
+            if (LE <= eps) {
+                xi = xi1;
+                vi = vi1;
+                if (LE <= (eps/pow(2,4))) {
+                stepi = stepi / 2;
+                C1 += 1;
+                }
+                i++
             }
-            i++
+            if (LE > eps) {
+                stepi = stepi * 2;
+                C2 += 1;
+                flag = 0;
+            }
         }
-        if (LE > eps) {
-            stepi = stepi * 2;
-            C2 += 1;
+        if (flag) {
+            table.append(xi, vi, v2i, LE, stepi, C1, C2, 0, 0);
         }
     }
     return(table);
