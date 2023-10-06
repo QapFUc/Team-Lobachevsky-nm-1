@@ -46,16 +46,20 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
                 xi = xi1;
                 vi = vi1;
                 if (LE <= (eps/pow(2,4))) {
-                stepi = stepi / 2;
-                C1 += 1;
+                stepi = stepi * 2;
+                C2 += 1;
                 }
                 i++
             }
             if (LE > eps) {
-                stepi = stepi * 2;
-                C2 += 1;
+                stepi = stepi / 2;
+                C1 += 1;
                 flag = 0;
             }
+        }
+        else {
+            xi = xi1;
+            vi = vi1;
         }
         if (flag) {
             table.append(xi, vi, v2i, LE, stepi, C1, C2, 0, 0);
