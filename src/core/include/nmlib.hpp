@@ -5,15 +5,14 @@
 
 #include "logger.hpp"
 
+#define _VAR_NAME_(VAR) #VAR
+
 struct tableRow {
 /// @todo write the constructor for init
 // one row of table for nm output (see actual task)
     tableRow(float xi, float vi, float v2i, float viv2i,
             float LE, float hi, uint C1, uint C2, float ui,
-            float uvi) : xi(xi), vi(vi), v2i(v2i), viv2i(viv2i), LE(LE), hi(hi), C1(C1), C2(C2), ui(ui), uvi(uvi);
-    ~tableRow(){
-        xi = 0; vi = 0; v2i = 0; viv2i = 0; LE = 0; hi = 0; C1 = 0; C2 = 0; ui = 0; uvi = 0;
-    }
+            float uvi) : xi(xi), vi(vi), v2i(v2i), viv2i(viv2i), LE(LE), hi(hi), C1(C1), C2(C2), ui(ui), uvi(uvi) {}
     float xi;
     float vi;
     float v2i;
@@ -24,12 +23,18 @@ struct tableRow {
     uint C2;
     float ui;
     float uvi;
+
+    friend std::ostream& operator<< (std::ostream& os, const tableRow& row) {
+        os << row.xi << ", " << row.vi << ", " << row.v2i << ", " << row.viv2i << ", " << row.LE << ", " 
+            << row.C1 << ", " << row.C2 << ", " << row.ui << ", " << row.uvi << ", ";
+        return os;
+    }
 };
 
 typedef std::vector<tableRow> resultTable; // table for output
 
 struct config {   
-    config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, float eps) : x_min(x_min), x_max(x_max), x_0(x_0), u_0(u_0), step(step), N_max(N_max), eps(eps) {}
+    config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, bool LEC, float eps) : x_min(x_min), x_max(x_max), x_0(x_0), u_0(u_0), step(step), N_max(N_max), LEC(LEC), eps(eps) {}
     // Left and right limits for x variable
     float x_min; 
     float x_max;
@@ -43,6 +48,12 @@ struct config {
 
     bool LEC = 1; // Is there control for local error
     float eps = 0.f; // Epsilon for local error control
+
+    friend std::ostream& operator<< (std::ostream& os, const config& cfg) {
+        os << "x_min=" << cfg.x_min << " x_max=" << cfg.x_max << " x_0=" << cfg.x_0 
+            << " u_0=" << cfg.u_0 << " step=" << cfg.step << " N_max=" << cfg.N_max << " LEC=" << cfg.LEC << " eps=" << cfg.eps;
+        return os;
+    }
 };
 
 
@@ -60,7 +71,7 @@ resultTable second_task_b(config cfg);
 /// @brief Namespace utils is needed to provide utilities that will be used in core functions
 namespace utils {
 /// @brief make config from python input
-config make_config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, float eps);
+config make_config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, bool LEC, float eps);
 
 /// numerical method 
 resultTable RK4(std::function<float(float,float)> rhs, config cfg);
@@ -74,6 +85,7 @@ extern "C" tableRow* run_from_python(char *func_name,
                                      float u_0,
                                      float step,
                                      uint N_max,
+                                     bool LEC,
                                      float eps,
                                      uint *rowsCount); 
 // uint -> c_ulong in python
