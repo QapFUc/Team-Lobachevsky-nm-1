@@ -30,7 +30,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
         vi1 = vi + stepi/6 +( k1 + 2 * k2 + 2 * k3 + k4 );
         // (xi,vi2)
         xi2 = xi;
-        vi2 = vi;
+        v2i = vi;
         for(int j = 0; j<=1; j++) {
             k1 =  rhs(xi ,v2i);
             k2 = rhs(xi+stepi2/2 ,vi + (stepi2/2) * k1);
