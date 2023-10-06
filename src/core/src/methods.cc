@@ -17,6 +17,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
     float viv2i = 0;
     float stepi2 = cfg.step/2;
     float LE = 0;
+    float k1 ,k2 ,k3, k4;
     bool flag = 1;
     int i = 0;
     while (xi <= cfg.x_max && i <= cfg.N_max) {
