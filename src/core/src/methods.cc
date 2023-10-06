@@ -18,8 +18,9 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
     float stepi2 = cfg.step/2;
     float LE = 0;
     bool flag = 1;
-    i = 0
+    int i = 0;
     while (xi <= cfg.x_max && i <= cfg.N_max) {
+        tableRow row;
         flag = 1;
         // (xi,vi)
         k1 =  rhs(xi ,vi);
@@ -62,7 +63,8 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
             vi = vi1;
         }
         if (flag) {
-            table.append(xi, vi, v2i, LE, stepi, C1, C2, 0, 0);
+            row(xi, vi, v2i, LE, stepi, C1, C2, 0, 0);
+            table.append(row);
         }
     }
     return(table);
