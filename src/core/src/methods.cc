@@ -7,8 +7,10 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
     resultTable table;
     float xi = cfg.x_min;
     float vi = cfg.u_0;
+
     float xi1 = xi;
     float vi1 = vi;
+
     float xi2 = xi;
     float vi2 = vi;
     float v2i = cfg.u_0;
@@ -26,6 +28,8 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
 
     while (xi <= cfg.x_max && i <= cfg.N_max) {
         flag = 1;
+        stepi2 = stepi;
+        
         // (xi,vi)
         k1 = rhs(xi ,vi);
         k2 = rhs(xi+stepi/2, vi + (stepi/2) * k1);
@@ -33,6 +37,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
         k4 = rhs(xi+stepi, vi + stepi * k3);
         xi1 = xi + stepi;
         vi1 = vi + stepi/6 * ( k1 + 2 * k2 + 2 * k3 + k4 );
+
         // (xi,vi2)
         xi2 = xi;
         v2i = vi;
@@ -51,10 +56,9 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
         xi2 = xi2 + stepi2;
         v2i = v2i + stepi2/6 * (k1 + 2 * k2 + 2 * k3 + k4);
 
-
+        LE = (v2i - vi1)/(std::pow(2,4) - 1);
         // LEC
         if (LEC) {
-            LE = (v2i - vi1)/(std::pow(2,4) - 1);
             if (LE <= eps) {
                 xi = xi1;
                 vi = vi1;

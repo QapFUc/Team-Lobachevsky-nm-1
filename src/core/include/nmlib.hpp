@@ -25,7 +25,7 @@ struct tableRow {
     float uvi;
 
     friend std::ostream& operator<< (std::ostream& os, const tableRow& row) {
-        os << "xi = " <<row.xi << ", vi = " << row.vi << ", v2i = " << row.v2i << ", viv2i = " << row.viv2i << ", LE = " << row.LE << ", C1 = " 
+        os << "xi = " <<row.xi << ", vi = " << row.vi << ", v2i = " << row.v2i << ", viv2i = " << row.viv2i << ", LE = " << row.LE << ", hi = " << row.hi << ", C1 = " 
         << row.C1 << ", C2 = " << row.C2 << ", ui = " << row.ui << ", uvi = " << row.uvi;
         return os;
     }
