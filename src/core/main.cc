@@ -1,7 +1,7 @@
 #include "include/nmlib.hpp"
 
 float test_rhs(float x, float v) {
-        return  -(1./2.) * v;
+        return  -(4./2.) * v;
 }
 
 int main() {
