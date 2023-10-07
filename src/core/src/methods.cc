@@ -43,6 +43,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
         k4 = rhs(xi2+stepi2, v2i + stepi2 * k3);
         xi2 = xi2 + stepi2;
         v2i = v2i + stepi2/6 * (k1 + 2 * k2 + 2 * k3 + k4);
+
         k1 = rhs(xi2, v2i);
         k2 = rhs(xi2+stepi2/2, v2i + (stepi2/2) * k1);
         k3 = rhs(xi2+stepi2/2, v2i + (stepi2/2) * k2);
@@ -53,7 +54,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
 
         // LEC
         if (LEC) {
-            LE = (v2i -vi1)/(std::pow(2,4) - 1);
+            LE = (v2i - vi1)/(std::pow(2,4) - 1);
             if (LE <= eps) {
                 xi = xi1;
                 vi = vi1;
