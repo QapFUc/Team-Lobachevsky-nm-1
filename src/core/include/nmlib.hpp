@@ -75,6 +75,9 @@ config make_config(float x_min, float x_max, float x_0, float u_0, float step, u
 
 /// numerical method 
 resultTable RK4(std::function<float(float,float)> rhs, config cfg);
+
+/// step for method
+float StepRK4(std::function<float(float,float)> rhs, float x, float u, float step);
 } // namespace utils
 
 /// @brief  Function that will be called from python. 
