@@ -1,14 +1,14 @@
 #include "nmlib.hpp"
 
-config utils::make_config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, float eps) {
-    LOG_INFO_CLI("Making some congig");
+config utils::make_config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, bool LEC, float eps) {
+    LOG_INFO_CLI("Making some config");
 #if defined(DEBUG)
     LOG_DEBUG_CLI("Making config from python data", "Checking arguments");
 #endif
     NM_ASSERT((x_max >= x_min), "invalid argument x_min > x_max");
     /// @todo write an asserts for other args
 
-    config cfg {x_min, x_max, x_0, u_0, step, N_max, eps};
+    config cfg {x_min, x_max, x_0, u_0, step, N_max, LEC, eps};
     LOG_INFO_CLI("Configuration done");
     return cfg;
 }
@@ -31,13 +31,14 @@ extern "C" tableRow* run_from_python(char *func_name,
                                      float u_0,
                                      float step,
                                      uint N_max,
+                                     bool LEC,
                                      float eps,
                                      uint *rowsCount) {
     LOG_INFO_CLI("Function is running");
 #if defined(DEBUG)
-    LOG_DEBUG_CLI("params for config", std::string(func_name), x_min, x_max, x_0, u_0, step, N_max, eps, rowsCount);
+    LOG_DEBUG_CLI("params for config", std::string(func_name), x_min, x_max, x_0, u_0, step, N_max, LEC, eps, rowsCount);
 #endif
-    resultTable result = utils::functions[func_name](utils::make_config(x_min, x_max, x_0, u_0, step, N_max, eps));
+    resultTable result = utils::functions[func_name](utils::make_config(x_min, x_max, x_0, u_0, step, N_max, LEC, eps));
 
     *rowsCount = result.size();
     LOG_INFO_CLI("Function run succesfuly");

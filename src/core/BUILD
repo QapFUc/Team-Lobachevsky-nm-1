@@ -12,6 +12,7 @@ cc_library(
     hdrs = ["include/nmlib.hpp"],
     includes = ["include"],
     deps = ["logger"],
+    defines = ["DEBUG"],
     visibility = ["//visibility:public"]
 )
 

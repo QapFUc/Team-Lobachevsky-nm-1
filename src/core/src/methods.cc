@@ -1,73 +1,85 @@
 #include "nmlib.hpp"
+#include <cmath>
+
+float utils::StepRK4(std::function<float(float,float)> rhs, float x, float u, float step) {
+
+    //LOG_INFO_CLI("Start RK4 step with following config", x, u, step);
+
+    float new_u, k1, k2, k3, k4;
+    k1 = rhs(x, u);
+    k2 = rhs(x + step/2, u + step/2 * k1);
+    k3 = rhs(x + step/2, u + step/2 * k2);
+    k4 = rhs(x + step, u + step * k3);
+    new_u = u + step/6 * (k1 + (2 * k2) + (2 * k3) + k4);
+    return(new_u);
+}
 
 resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
+    LOG_INFO_CLI("Start RK4 with following config", cfg);
+    
     resultTable table;
-    float xi = cfg.x_min;
-    float vi = cfg.u_0;
-    float xi1 = xi;
-    float vi1 = vi;
-    float xi2 = xi;
-    float vi2 = vi;
-    float v2i = cfg.u_0; // point for step/2
-    float stepi = cfg.step;
-    bool LEC = cfg.LEC;
-    uint C1 = 0; // count div
-    uint C2 = 0; // count mult
-    float viv2i = 0;
-    float stepi2 = cfg.step/2;
-    float LE = 0;
-    float k1 ,k2 ,k3, k4;
-    bool flag = 1;
-    uint i = 0;
-    while (xi <= cfg.x_max && i <= cfg.N_max) {
-        tableRow row;
-        flag = 1;
-        // (xi,vi)
-        k1 =  rhs(xi ,vi);
-        k2 = rhs(xi+stepi/2 ,vi + (stepi/2) * k1);
-        k3 = rhs(xi+stepi/2 ,vi + (stepi/2) * k2);
-        k4 = rhs(xi+stepi ,vi + stepi * k3);
-        xi1 = xi + stepi;
-        vi1 = vi + stepi/6 +( k1 + 2 * k2 + 2 * k3 + k4 );
-        // (xi,vi2)
-        xi2 = xi;
-        v2i = vi;
-        for(int j = 0; j<=1; j++) {
-            k1 =  rhs(xi ,v2i);
-            k2 = rhs(xi+stepi2/2 ,vi + (stepi2/2) * k1);
-            k3 = rhs(xi+stepi2/2 ,vi + (stepi2/2) * k2);
-            k4 = rhs(xi+stepi2 ,vi + stepi2 * k3);
-            xi2 = xi2 + stepi2;
-            v2i = v2i + stepi2/6 +( k1 + 2 * k2 + 2 * k3 + k4 );
-        }
-        // LEC
-        if (LEC) {
-            LE = (v2i -vi1)/((2*2*2*2) - 1);
-            if (LE <= cfg.eps) {
-                xi = xi1;
-                vi = vi1;
-                if (LE <= (cfg.eps/(2*2*2*2))) {
+    float xi, x_min, x_max, ui, stepi, N_max, eps;
+    uint C1, C2;
+    C1 = 0;
+    C2 = 0;
+    xi = cfg.x_0;
+    x_min = cfg.x_min;
+    x_max = cfg.x_max;
+    ui = cfg.u_0;
+    stepi = cfg.step;
+    N_max = cfg.N_max;
+    eps = cfg.eps;
+
+    if (cfg.LEC) {
+        int i = 0;
+        float u1, u2;
+        float viv2i, LocalError;
+        while (xi >= x_min && xi <= x_max && i < N_max) {
+            u1 = StepRK4(rhs, xi, ui, stepi);
+            u2 = StepRK4(rhs, xi, ui, stepi/2);
+            u2 = StepRK4(rhs, xi + stepi/2, u2, stepi/2);
+
+            LocalError = (std::abs(u1 - u2))/(std::pow(2,4) - 1);
+            if (LocalError < eps/std::pow(2,5)) {
+                ui = u1;
+                xi = xi + stepi;
+                viv2i = std::abs(ui - u2);
+                tableRow row(xi, ui, u2, viv2i, LocalError, stepi, C1, C2, 0.f, 0.f);
+                table.push_back(row);
                 stepi = stepi * 2;
-                C2 += 1;
-                }
+                C2++;
                 i++;
-            }
-            if (LE > cfg.eps) {
+            } else if (LocalError >= eps/std::pow(2,5) && LocalError <= eps ) {
+                ui = u1;
+                xi = xi + stepi;
+                viv2i = std::abs(ui - u2);
+                tableRow row(xi, ui, u2, viv2i, LocalError, stepi, C1, C2, 0.f, 0.f);
+                table.push_back(row);
+                i++;
+                
+            } else if (LocalError > eps) {
                 stepi = stepi / 2;
-                C1 += 1;
-                flag = 0;
+                C1++;
+                i++;
+            } else {
+                LOG_INFO_CLI("Error in RK4 with LEC", cfg);
             }
         }
-        else {
-            xi = xi1;
-            vi = vi1;
+        return(table);
+
+    } else if (not(cfg.LEC)){
+        int i = 0;
+        while (xi >= x_min && xi <= x_max && i < N_max) {
+            ui = StepRK4(rhs, xi, ui, stepi);
+            xi = xi + stepi;
+            i++;
+            tableRow row(xi, ui, 0.f, 0.f, 0.f, stepi, 0.f, 0.f, 0.f, 0.f);
+            table.push_back(row);
         }
-        if (flag) {
-            row(xi, vi, v2i, LE, stepi, C1, C2, 0, 0);
-            table.append(row);
-        }
+        return(table);
+    } else {
+        LOG_INFO_CLI("Error in RK4", cfg);
     }
-    return(table);
 }
 
 /// @todo Implement core functions
