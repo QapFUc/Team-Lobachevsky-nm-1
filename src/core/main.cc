@@ -1,17 +1,13 @@
 #include "include/nmlib.hpp"
 
-float const_rhs1(float x, float v) {
-        return 1.f;
-}
-
-float const_rhs2(float x, float v) {
-        return (2.f*x*x)/7+x/3;
+float test_rhs(float x, float v) {
+        return  -(1./2.) * v;
 }
 
 int main() {
-   resultTable res1 = utils::RK4(const_rhs1, utils::make_config(0.f, 500.f, 0.f, 0.f, 0.05, 10000, true,0.00001));
-   LOG_DEBUG_CLI("Result is ", res1.at(1000));
-   resultTable res2 = utils::RK4(const_rhs2, utils::make_config(0.f, 500.f, 0.f, 0.f, 0.0035, 10000, true,0.00001));
-   LOG_DEBUG_CLI("Result is ", res2.at(9999));
+   resultTable res1 = utils::RK4(test_rhs, utils::make_config(0.f, 20.f, 0.f, 0.f, 0.01, 1000, true, 1e-6));
+   for(int i = 0 ; i < 30; i++) {
+        LOG_DEBUG_CLI("Result is ", res1.at(i));
+   }
    return 0;
 }
