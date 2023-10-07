@@ -8,18 +8,17 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
     float vi1 = vi;
     float xi2 = xi;
     float vi2 = vi;
-    float v2i = cfg.u_0;
+    float v2i = cfg.u_0; // point for step/2
     float stepi = cfg.step;
     bool LEC = cfg.LEC;
-    int C1 = 0; // count div
-    int C2 = 0; // count mult
-    float v2i = cfg.u_0; // point for step/2
+    uint C1 = 0; // count div
+    uint C2 = 0; // count mult
     float viv2i = 0;
     float stepi2 = cfg.step/2;
     float LE = 0;
     float k1 ,k2 ,k3, k4;
     bool flag = 1;
-    int i = 0;
+    uint i = 0;
     while (xi <= cfg.x_max && i <= cfg.N_max) {
         tableRow row;
         flag = 1;
@@ -43,17 +42,17 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
         }
         // LEC
         if (LEC) {
-            LE = (v2i -vi1)/(pow(2,4) - 1);
-            if (LE <= eps) {
+            LE = (v2i -vi1)/((2*2*2*2) - 1);
+            if (LE <= cfg.eps) {
                 xi = xi1;
                 vi = vi1;
-                if (LE <= (eps/pow(2,4))) {
+                if (LE <= (cfg.eps/(2*2*2*2))) {
                 stepi = stepi * 2;
                 C2 += 1;
                 }
-                i++
+                i++;
             }
-            if (LE > eps) {
+            if (LE > cfg.eps) {
                 stepi = stepi / 2;
                 C1 += 1;
                 flag = 0;

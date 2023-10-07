@@ -8,9 +8,21 @@
 struct tableRow {
 /// @todo write the constructor for init
 // one row of table for nm output (see actual task)
+    tableRow(){};
     tableRow(float xi, float vi, float v2i, float viv2i,
             float LE, float hi, uint C1, uint C2, float ui,
-            float uvi) : xi(xi), vi(vi), v2i(v2i), viv2i(viv2i), LE(LE), hi(hi), C1(C1), C2(C2), ui(ui), uvi(uvi);
+            float uvi) {
+                xi = xi;
+                vi = vi;
+                v2i = v2i;
+                viv2i = viv2i;
+                LE = LE;
+                hi = hi;
+                C1 = C1;
+                C2 = C2;
+                ui = ui;
+                uvi =uvi;
+            }
     ~tableRow(){
         xi = 0; vi = 0; v2i = 0; viv2i = 0; LE = 0; hi = 0; C1 = 0; C2 = 0; ui = 0; uvi = 0;
     }
