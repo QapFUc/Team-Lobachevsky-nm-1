@@ -24,23 +24,3 @@ std::map<char*, std::function<resultTable(config)>> functions = {
 };
 }
 
-extern "C" tableRow* run_from_python(char *func_name,    
-                                     float x_min, 
-                                     float x_max,
-                                     float x_0, 
-                                     float u_0,
-                                     float step,
-                                     uint N_max,
-                                     bool LEC,
-                                     float eps,
-                                     uint *rowsCount) {
-    LOG_INFO_CLI("Function is running");
-#if defined(DEBUG)
-    LOG_DEBUG_CLI("params for config", std::string(func_name), x_min, x_max, x_0, u_0, step, N_max, LEC, eps, rowsCount);
-#endif
-    resultTable result = utils::functions[func_name](utils::make_config(x_min, x_max, x_0, u_0, step, N_max, LEC, eps));
-
-    *rowsCount = result.size();
-    LOG_INFO_CLI("Function run succesfuly");
-    return result.data();
-}

@@ -62,7 +62,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
                 C1++;
                 i++;
             } else {
-                LOG_INFO_CLI("Error in RK4 with LEC", cfg);
+                LOG_ERROR_CLI(cfg);
             }
         }
         return(table);

@@ -5,8 +5,6 @@
 
 #include "logger.hpp"
 
-#define _VAR_NAME_(VAR) #VAR
-
 struct tableRow {
 /// @todo write the constructor for init
 // one row of table for nm output (see actual task)
@@ -79,17 +77,3 @@ resultTable RK4(std::function<float(float,float)> rhs, config cfg);
 /// step for method
 float StepRK4(std::function<float(float,float)> rhs, float x, float u, float step);
 } // namespace utils
-
-/// @brief  Function that will be called from python. 
-extern "C" tableRow* run_from_python(char *func_name,    
-                                     float x_min, 
-                                     float x_max,
-                                     float x_0, 
-                                     float u_0,
-                                     float step,
-                                     uint N_max,
-                                     bool LEC,
-                                     float eps,
-                                     uint *rowsCount); 
-// uint -> c_ulong in python
-// float -> c_float

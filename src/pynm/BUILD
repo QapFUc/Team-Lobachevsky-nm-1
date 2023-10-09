@@ -1,5 +1,0 @@
-py_library(
-    name = "python",
-    srcs = ["__init__.py"]
-    visibility = ["//visibility:public"]
-)
