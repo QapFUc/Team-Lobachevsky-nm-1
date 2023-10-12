@@ -20,6 +20,15 @@ if(ENABLE_QT6)
     target_link_libraries(nm_lab PRIVATE Qt6::Core)
 endif()
 
+if(ENABLE_QT5)
+    find_package(Qt5 REQUIRED COMPONENTS Core PATHS ${QT6_LIB_PATH})
+    qt_standart_project_setup()
+
+    qt_add_executable(nm_lab main.cpp)
+
+    target_link_libraries(nm_lab PRIVATE Qt5::Core)
+endif()
+
 target_link_libraries(nm_lab PRIVATE
     nm::core 
 )
