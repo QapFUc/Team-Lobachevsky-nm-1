@@ -2,6 +2,7 @@
 #include <vector>
 #include <functional>
 #include <map>
+#include <tuple>
 
 #include "logger.hpp"
 
@@ -33,6 +34,7 @@ typedef std::vector<tableRow> resultTable; // table for output
 
 struct config {   
     config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, bool LEC, float eps) : x_min(x_min), x_max(x_max), x_0(x_0), u_0(u_0), step(step), N_max(N_max), LEC(LEC), eps(eps) {}
+    config(std::tuple<float, float, float, float, float, uint, bool, float> tpl) : config(std::get<0>(tpl), std::get<1>(tpl), std::get<2>(tpl), std::get<3>(tpl), std::get<4>(tpl), std::get<5>(tpl), std::get<6>(tpl), std::get<7>(tpl)) {} 
     // Left and right limits for x variable
     float x_min; 
     float x_max;
@@ -54,19 +56,18 @@ struct config {
     }
 };
 
+struct task {
+    config cfg;
+    std::function<float(float, float)> rhs;
+    resultTable result;
+public:
+    task(std::function<float(float,float)> _rhs, config _cfg) : cfg(_cfg), rhs(_rhs) {}
+    resultTable operator()() {
+        result = utils::RK4(rhs, cfg);
+        return result;
+    }
+};
 
-/// @brief  This is the core functions block. Each of them calculate one of examples from main task (see actual task) 
-/// @todo write an implementation for each one
-resultTable test_task_a(config cfg);
-resultTable test_task_b(config cfg);
-
-resultTable first_task_a(config cfg);
-resultTable first_task_b(config cfg);
-
-resultTable second_task_a(config cfg);
-resultTable second_task_b(config cfg);
-
-/// @brief Namespace utils is needed to provide utilities that will be used in core functions
 namespace utils {
 /// @brief make config from python input
 config make_config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, bool LEC, float eps);
