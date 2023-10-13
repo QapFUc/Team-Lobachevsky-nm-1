@@ -1,8 +1,8 @@
-/home/vsuchkov/code/unn/numeth/s1lab1/Team-Lobachevsky-nm-1/build/CMakeFiles/nm_lab.dir
-/home/vsuchkov/code/unn/numeth/s1lab1/Team-Lobachevsky-nm-1/build/CMakeFiles/edit_cache.dir
-/home/vsuchkov/code/unn/numeth/s1lab1/Team-Lobachevsky-nm-1/build/CMakeFiles/rebuild_cache.dir
-/home/vsuchkov/code/unn/numeth/s1lab1/Team-Lobachevsky-nm-1/build/src/CMakeFiles/edit_cache.dir
-/home/vsuchkov/code/unn/numeth/s1lab1/Team-Lobachevsky-nm-1/build/src/CMakeFiles/rebuild_cache.dir
-/home/vsuchkov/code/unn/numeth/s1lab1/Team-Lobachevsky-nm-1/build/src/core/CMakeFiles/nm_core_lib.dir
-/home/vsuchkov/code/unn/numeth/s1lab1/Team-Lobachevsky-nm-1/build/src/core/CMakeFiles/edit_cache.dir
-/home/vsuchkov/code/unn/numeth/s1lab1/Team-Lobachevsky-nm-1/build/src/core/CMakeFiles/rebuild_cache.dir
+/home/qapfuc/Team-Lobachevsky-nm-1/build/CMakeFiles/nm_lab.dir
+/home/qapfuc/Team-Lobachevsky-nm-1/build/CMakeFiles/edit_cache.dir
+/home/qapfuc/Team-Lobachevsky-nm-1/build/CMakeFiles/rebuild_cache.dir
+/home/qapfuc/Team-Lobachevsky-nm-1/build/src/CMakeFiles/edit_cache.dir
+/home/qapfuc/Team-Lobachevsky-nm-1/build/src/CMakeFiles/rebuild_cache.dir
+/home/qapfuc/Team-Lobachevsky-nm-1/build/src/core/CMakeFiles/nm_core_lib.dir
+/home/qapfuc/Team-Lobachevsky-nm-1/build/src/core/CMakeFiles/edit_cache.dir
+/home/qapfuc/Team-Lobachevsky-nm-1/build/src/core/CMakeFiles/rebuild_cache.dir

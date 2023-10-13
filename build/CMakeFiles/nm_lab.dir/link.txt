@@ -1,1 +1,1 @@
-/usr/bin/clang CMakeFiles/nm_lab.dir/main.cc.o -o nm_lab  src/core/libnm_core_lib.a 
+/usr/bin/c++ CMakeFiles/nm_lab.dir/main.cc.o -o nm_lab  src/core/libnm_core_lib.a 
