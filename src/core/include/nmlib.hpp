@@ -64,12 +64,13 @@ struct config {
 
 namespace utils {
 /// @brief make config from python input
-// config make_config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, bool LEC, float eps);
+config make_config(const float& x_min, const float& x_max, const float& x_0, const float& u_0, const float& du_0, const float& step,  const uint& N_max, const bool& LEC, const float& eps);
 
 /// numerical method 
 resultTable RK4(std::function<float(float,float)> rhs, const config& cfg);
 
-// resultTable RK4
+/// @brief  RK4 for System Of two Equations 
+resultTable RK4_SOE(std::function<float(float, float, float)>, const config& cfg);
 
 /// step for method
 inline float StepRK4(std::function<float(float,float)> rhs, const float& x, const float& u, const float& step);

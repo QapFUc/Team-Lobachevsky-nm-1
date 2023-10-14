@@ -81,3 +81,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, const config& cfg)
         LOG_INFO_CLI("Error in RK4", cfg);
     }
 }
+
+resultTable RK4_SOE(std::function<float(float, float, float)>, const config& cfg) {
+    [](){};
+}
