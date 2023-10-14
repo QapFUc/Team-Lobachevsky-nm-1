@@ -23,6 +23,9 @@ struct tableRow {
     float ui;
     float uvi;
 
+    std::tuple<float, float, float, float, float, float, uint, uint, float, float> get_tuple() {
+        return std::tuple<float, float, float, float, float, float, uint, uint, float, float> (xi, vi, v2i, viv2i, LE, hi, C1, C2, ui, uvi);}
+
 
     friend std::ostream& operator<< (std::ostream& os, const tableRow& row) {
         os << "xi = " <<row.xi << ", vi = " << row.vi << ", v2i = " << row.v2i << ", viv2i = " << row.viv2i << ", LE = " << row.LE << ", hi = " << row.hi << ", C1 = " 
@@ -34,8 +37,8 @@ struct tableRow {
 typedef std::vector<tableRow> resultTable; // table for output
 
 struct config {   
-    config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, bool LEC, float eps) : x_min(x_min), x_max(x_max), x_0(x_0), u_0(u_0), step(step), N_max(N_max), LEC(LEC), eps(eps) {}
-    config(std::tuple<float, float, float, float, float, uint, bool, float> tpl) : config(std::get<0>(tpl), std::get<1>(tpl), std::get<2>(tpl), std::get<3>(tpl), std::get<4>(tpl), std::get<5>(tpl), std::get<6>(tpl), std::get<7>(tpl)) {} 
+    config(float x_min, float x_max, float x_0, float u_0, float du_0, float step, uint N_max, bool LEC, float eps) : x_min(x_min), x_max(x_max), x_0(x_0), u_0(u_0), du_0(du_0), step(step), N_max(N_max), LEC(LEC), eps(eps) {}
+    config(std::tuple<float, float, float, float, float, float, uint, bool, float> tpl) : config(std::get<0>(tpl), std::get<1>(tpl), std::get<2>(tpl), std::get<3>(tpl), std::get<4>(tpl), std::get<5>(tpl), std::get<6>(tpl), std::get<7>(tpl), std::get<8>(tpl)) {} 
     // Left and right limits for x variable
     float x_min; 
     float x_max;
@@ -43,6 +46,7 @@ struct config {
     // initial point
     float x_0; 
     float u_0;
+    float du_0;
 
     float step; // step
     uint N_max; // Maximum num for iterations
@@ -63,20 +67,22 @@ namespace utils {
 config make_config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, bool LEC, float eps);
 
 /// numerical method 
-resultTable RK4(std::function<float(float,float)> rhs, config cfg);
+resultTable RK4(std::function<float(float,float)> rhs, const config& cfg);
 
 /// step for method
-float StepRK4(std::function<float(float,float)> rhs, float x, float u, float step);
+inline float StepRK4(std::function<float(float,float)> rhs, const float& x, const float& u, const float& step);
 } // namespace utils
 
-struct task {
+template<class Return, class... Args>
+class task {
     config cfg;
-    std::function<float(float, float)> rhs;
+    std::function<Return(Args...)> rhs;
+    std::function<resultTable(std::function<Return(Args...)>, config)> method;
     resultTable result;
 public:
-    task(std::function<float(float,float)> _rhs, config _cfg) : cfg(_cfg), rhs(_rhs) {}
+    task(std::function<Return(Args...)> _rhs, config _cfg, std::function<resultTable(std::function<Return(Args...)> _method) : cfg(_cfg), rhs(_rhs), method(_method) {}
     resultTable operator()() {
-        result = utils::RK4(rhs, cfg);
+        result = method(rhs, cfg);
         return result;
     }
 };
