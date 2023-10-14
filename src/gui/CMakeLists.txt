@@ -1,31 +1,15 @@
 set(TARGET_NAME nm_gui)
 
-file(GLOB_RECURSE LIB_SOURCES "src/lib/*.cc" "*.h")
-add_library(nm_gui_lib SHARED ${LIB_SOURCES})
-add_library(nm::gui ALIAS nm_gui_lib)
+file(GLOB_RECURSE SOURCES "*.cc" "*.h")
 
-target_link_libraries(nm_gui_lib PRIVATE
+add_executable(${TARGET_NAME} ${SOURCES})
+
+target_link_libraries(${TARGET_NAME} PRIVATE
     Qt6::Core 
     Qt6::Widgets
+    nm::core
 )
 
-target_include_directories(nm_gui_lib PRIVATE include)
-
-add_executable(${TARGET_NAME} src/main.cc
-                              mainwindow.ui
-                              mainwindow.h
-                              qcustomplot.h
-                              ui_mainwindow.h
-                              moc_predefs.h
-                              src/lib/mainwindow.cc
-                              src/lib/moc_mainwindow.cc
-                              src/lib/moc_qcustomplot.cc
-                              src/lib/qcustomplot.cc
-)
-
-target_link_libraries(${TARGET_NAME} PRIVATE 
-    nm::core 
-    nm::gui
-)
+target_include_directories(${TARGET_NAME} PRIVATE include)
 
 
