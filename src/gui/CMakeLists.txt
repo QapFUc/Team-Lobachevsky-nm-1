@@ -10,6 +10,11 @@ target_link_libraries(${TARGET_NAME} PRIVATE
     nm::core
 )
 
+set_target_properties(${TARGET_NAME} PROPERTIES
+    MACOSX_BUNDLE TRUE
+    WIN32_EXECUTABLE TRUE
+)
+
 target_include_directories(${TARGET_NAME} PRIVATE include)
 
 
