@@ -1,3 +1,3 @@
 set(TARGET_NAME nm_core_gui)
 
-file(GLOB_RECURSE SOURCES "*.cc" "*.hpp")
+file(GLOB_RECURSE SOURCES "*.cc" "*.hpp" "*.h")
