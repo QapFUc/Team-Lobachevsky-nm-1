@@ -23,39 +23,6 @@ struct tableRow {
     float ui;
     float uvi;
 
-    float Get_xi() {
-        return(xi);
-    }
-    float Get_vi() {
-        return(vi);
-    }
-    float Get_v2i() {
-        return(v2i);
-    }
-    float Get_viv2i() {
-        return(viv2i);
-    }
-    float Get_LE() {
-        return(LE);
-    }
-    float Get_hi() {
-        return(hi);
-    }
-    float Get_C1() {
-        return(C1);
-    }
-    float Get_C2() {
-        return(C2);
-    }
-    float Get_ui(){
-        return(ui);
-    }
-    float Get_uvi() {
-        return(uvi);
-    }
-
-
-
 
     friend std::ostream& operator<< (std::ostream& os, const tableRow& row) {
         os << "xi = " <<row.xi << ", vi = " << row.vi << ", v2i = " << row.v2i << ", viv2i = " << row.viv2i << ", LE = " << row.LE << ", hi = " << row.hi << ", C1 = " 
