@@ -23,6 +23,7 @@ struct tableRow {
     float ui;
     float uvi;
 
+
     friend std::ostream& operator<< (std::ostream& os, const tableRow& row) {
         os << "xi = " <<row.xi << ", vi = " << row.vi << ", v2i = " << row.v2i << ", viv2i = " << row.viv2i << ", LE = " << row.LE << ", hi = " << row.hi << ", C1 = " 
         << row.C1 << ", C2 = " << row.C2 << ", ui = " << row.ui << ", uvi = " << row.uvi;
@@ -56,17 +57,6 @@ struct config {
     }
 };
 
-struct task {
-    config cfg;
-    std::function<float(float, float)> rhs;
-    resultTable result;
-public:
-    task(std::function<float(float,float)> _rhs, config _cfg) : cfg(_cfg), rhs(_rhs) {}
-    resultTable operator()() {
-        result = utils::RK4(rhs, cfg);
-        return result;
-    }
-};
 
 namespace utils {
 /// @brief make config from python input
@@ -78,3 +68,15 @@ resultTable RK4(std::function<float(float,float)> rhs, config cfg);
 /// step for method
 float StepRK4(std::function<float(float,float)> rhs, float x, float u, float step);
 } // namespace utils
+
+struct task {
+    config cfg;
+    std::function<float(float, float)> rhs;
+    resultTable result;
+public:
+    task(std::function<float(float,float)> _rhs, config _cfg) : cfg(_cfg), rhs(_rhs) {}
+    resultTable operator()() {
+        result = utils::RK4(rhs, cfg);
+        return result;
+    }
+};
