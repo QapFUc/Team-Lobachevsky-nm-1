@@ -12,11 +12,11 @@ target_link_libraries(nm_gui_lib PRIVATE
 target_include_directories(nm_gui_lib PRIVATE include)
 
 add_executable(${TARGET_NAME} src/main.cc
-                              include/mainwindow.ui
-                              include/mainwindow.h
-                              include/qcustomplot.h
-                              include/ui_mainwindow.h
-                              include/moc_predefs.h
+                              mainwindow.ui
+                              mainwindow.h
+                              qcustomplot.h
+                              ui_mainwindow.h
+                              moc_predefs.h
                               src/lib/mainwindow.cc
                               src/lib/moc_mainwindow.cc
                               src/lib/moc_qcustomplot.cc
