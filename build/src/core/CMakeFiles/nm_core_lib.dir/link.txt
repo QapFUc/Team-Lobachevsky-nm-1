@@ -1,2 +1,0 @@
-/usr/bin/ar qc libnm_core_lib.a CMakeFiles/nm_core_lib.dir/src/methods.cc.o CMakeFiles/nm_core_lib.dir/src/nmlib.cc.o
-/usr/bin/ranlib libnm_core_lib.a
