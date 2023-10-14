@@ -64,10 +64,12 @@ struct config {
 
 namespace utils {
 /// @brief make config from python input
-config make_config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, bool LEC, float eps);
+// config make_config(float x_min, float x_max, float x_0, float u_0, float step, uint N_max, bool LEC, float eps);
 
 /// numerical method 
 resultTable RK4(std::function<float(float,float)> rhs, const config& cfg);
+
+// resultTable RK4
 
 /// step for method
 inline float StepRK4(std::function<float(float,float)> rhs, const float& x, const float& u, const float& step);
@@ -80,7 +82,7 @@ class task {
     std::function<resultTable(std::function<Return(Args...)>, config)> method;
     resultTable result;
 public:
-    task(std::function<Return(Args...)> _rhs, config _cfg, std::function<resultTable(std::function<Return(Args...)> _method) : cfg(_cfg), rhs(_rhs), method(_method) {}
+    task(std::function<Return(Args...)> _rhs, const config& _cfg, std::function<resultTable(std::function<Return(Args...)>, config)> _method) : cfg(_cfg), rhs(_rhs), method(_method) {}
     resultTable operator()() {
         result = method(rhs, cfg);
         return result;
