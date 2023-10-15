@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>850</width>
-    <height>502</height>
+    <width>1766</width>
+    <height>829</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <widget class="QPushButton" name="exit_button">
     <property name="geometry">
      <rect>
-      <x>700</x>
+      <x>1650</x>
       <y>10</y>
       <width>100</width>
       <height>32</height>
@@ -40,28 +40,28 @@
      <item>
       <widget class="QPushButton" name="button_plot">
        <property name="text">
-        <string>plot a graph</string>
+        <string>Plot a graph</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="button_clear">
        <property name="text">
-        <string>clear</string>
+        <string>Clear</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="button_save_points">
        <property name="text">
-        <string>save points to file</string>
+        <string>Save points to file</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="button_plot_from_file">
        <property name="text">
-        <string>plot from file</string>
+        <string>Plot from file</string>
        </property>
       </widget>
      </item>
@@ -71,7 +71,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>282</y>
+      <y>613</y>
       <width>191</width>
       <height>102</height>
      </rect>
@@ -80,7 +80,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>precision:</string>
+        <string>Precision:</string>
        </property>
       </widget>
      </item>
@@ -90,7 +90,7 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>method's step:</string>
+        <string>Method's step:</string>
        </property>
       </widget>
      </item>
@@ -103,7 +103,7 @@
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>380</y>
+      <y>711</y>
       <width>411</width>
       <height>51</height>
      </rect>
@@ -112,28 +112,28 @@
      <item>
       <widget class="QRadioButton" name="radioButton_blue">
        <property name="text">
-        <string>blue</string>
+        <string>Blue</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QRadioButton" name="radioButton_red">
        <property name="text">
-        <string>red</string>
+        <string>Red</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QRadioButton" name="radioButton_green">
        <property name="text">
-        <string>green</string>
+        <string>Green</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QRadioButton" name="radioButton_violet">
        <property name="text">
-        <string>violet</string>
+        <string>Violet</string>
        </property>
       </widget>
      </item>
@@ -142,23 +142,23 @@
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>385</y>
-      <width>61</width>
+      <x>20</x>
+      <y>720</y>
+      <width>91</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>set color:</string>
+     <string>Color for plot</string>
     </property>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget_2">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>170</y>
+      <y>501</y>
       <width>191</width>
-      <height>23</height>
+      <height>26</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -181,9 +181,9 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>200</y>
+      <y>531</y>
       <width>191</width>
-      <height>23</height>
+      <height>26</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -206,16 +206,16 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>240</y>
+      <y>571</y>
       <width>191</width>
-      <height>23</height>
+      <height>26</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
       <widget class="QLabel" name="label_start">
        <property name="text">
-        <string>start:</string>
+        <string>Start:</string>
        </property>
       </widget>
      </item>
@@ -231,7 +231,7 @@
     <property name="geometry">
      <rect>
       <x>580</x>
-      <y>379</y>
+      <y>710</y>
       <width>186</width>
       <height>51</height>
      </rect>
@@ -240,18 +240,28 @@
      <item>
       <widget class="QLabel" name="label_mistake">
        <property name="text">
-        <string>add mistake?</string>
+        <string>Local ERROR control</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QRadioButton" name="radioButton_mistake">
        <property name="text">
-        <string>yes</string>
+        <string/>
        </property>
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QCustomPlot" name="plot" native="true">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>70</y>
+      <width>1501</width>
+      <height>591</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -259,8 +269,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>827</width>
-     <height>36</height>
+     <width>1766</width>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuhello">
@@ -272,6 +282,14 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

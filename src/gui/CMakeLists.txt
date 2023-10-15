@@ -13,5 +13,7 @@ target_link_libraries(${TARGET_NAME} PRIVATE
 )
 
 target_include_directories(${TARGET_NAME} PRIVATE include)
+target_include_directories(${TARGET_NAME} PRIVATE ../qcplib/include)
+
 
 
