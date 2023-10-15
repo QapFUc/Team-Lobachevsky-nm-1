@@ -1,7 +1,7 @@
 #include "nmlib.hpp"
 #include <cmath>
 
-float utils::StepRK4(std::function<float(float,float)> rhs, float x, float u, float step) {
+inline float utils::StepRK4(std::function<float(float,float)> rhs, const float& x, const float& u, const float& step) {
 
     //LOG_INFO_CLI("Start RK4 step with following config", x, u, step);
 
@@ -14,7 +14,7 @@ float utils::StepRK4(std::function<float(float,float)> rhs, float x, float u, fl
     return(new_u);
 }
 
-resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
+resultTable utils::RK4(std::function<float(float,float)> rhs, const config& cfg) {
     LOG_INFO_CLI("Start RK4 with following config", cfg);
     
     resultTable table;
@@ -82,24 +82,6 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, config cfg) {
     }
 }
 
-/// @todo Implement core functions
-resultTable test_task_a(config cfg) {
-    [](){};
-}
-resultTable test_task_b(config cfg) {
-    [](){};
-}
-
-resultTable first_task_a(config cfg) {
-    [](){};
-}
-resultTable first_task_b(config cfg) {
-    [](){};
-}
-
-resultTable second_task_a(config cfg) {
-    [](){};
-}
-resultTable second_task_b(config cfg) {
+resultTable RK4_SOE(std::function<float(float, float, float)>, const config& cfg) {
     [](){};
 }

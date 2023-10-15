@@ -6,32 +6,23 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS_INIT "-Wall")
 
-
-add_subdirectory(src)
-add_executable(nm_lab main.cc)
-
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 
 if(ENABLE_QT6)
-    find_package(Qt6 REQUIRED COMPONENTS Core PATHS ${QT6_LIB_PATH})
-    qt_standart_project_setup()
-
-    qt_add_executable(nm_lab main.cpp)
-
-    target_link_libraries(nm_lab PRIVATE Qt6::Core)
+    find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui PATHS ${QT6_LIB_PATH})
 endif()
 
-if(ENABLE_QT5)
-    find_package(Qt5 REQUIRED COMPONENTS Core PATHS ${QT6_LIB_PATH})
-    qt_standart_project_setup()
+# include_directories("${QT6_LIB_PATH}/include")
 
-    qt_add_executable(nm_lab main.cpp)
+add_subdirectory(src)
 
-    target_link_libraries(nm_lab PRIVATE Qt5::Core)
-endif()
-
-target_link_libraries(nm_lab PRIVATE
-    nm::core 
+add_executable(dbg_main main.cc)
+target_link_libraries(dbg_main PRIVATE 
+    nm::core
 )
 
+target_include_directories(dbg_main PRIVATE src/core/include)
 
 
