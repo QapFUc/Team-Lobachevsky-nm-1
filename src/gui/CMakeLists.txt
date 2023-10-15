@@ -6,8 +6,10 @@ add_executable(${TARGET_NAME} ${SOURCES})
 
 target_link_libraries(${TARGET_NAME} PRIVATE
     Qt6::Core 
+    Qt6::PrintSupport
     Qt6::Widgets
     nm::core
+    qcustomplot
 )
 
 set_target_properties(${TARGET_NAME} PROPERTIES
@@ -16,5 +18,7 @@ set_target_properties(${TARGET_NAME} PROPERTIES
 )
 
 target_include_directories(${TARGET_NAME} PRIVATE include)
+target_include_directories(${TARGET_NAME} PRIVATE ../qcplib/include)
+
 
 
