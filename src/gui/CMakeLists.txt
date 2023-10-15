@@ -6,6 +6,7 @@ add_executable(${TARGET_NAME} ${SOURCES})
 
 target_link_libraries(${TARGET_NAME} PRIVATE
     Qt6::Core 
+    Qt6::PrintSupport
     Qt6::Widgets
     nm::core
     qcustomplot

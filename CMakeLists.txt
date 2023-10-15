@@ -11,7 +11,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 if(ENABLE_QT6)
-    find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui PATHS ${QT6_LIB_PATH})
+    find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui PrintSupport PATHS ${QT6_LIB_PATH})
 endif()
 
 # include_directories("${QT6_LIB_PATH}/include")
