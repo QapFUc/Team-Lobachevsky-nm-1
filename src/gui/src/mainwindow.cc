@@ -26,8 +26,8 @@ MainWindow::MainWindow(QWidget *parent)
     //x_begin = -3;
     //x_end = 3+h;
 
-    //x_begin = (this->ui->lineEdit_start_x->text()).toDouble();
-    //x_end = (this->ui->lineEdit_x_end->text()).toDouble();
+    //x_begin = (this->ui->lineEdit_start_x->text()).toFloat();
+    //x_end = (this->ui->lineEdit_x_end->text()).toFloat();
 
     //this->ui->plot->addGraph();
     //this->ui->plot->graph(0)->addData(x, y);
@@ -46,32 +46,16 @@ void MainWindow::on_button_plot_clicked()
 {
     QVector<double> x, y;
 
-    x_begin = this->ui->lineEdit_x_start->text().toDouble();
-    x_end = this->ui->lineEdit_x_end->text().toDouble();
-    h = this->ui->lineEdit_step->text().toDouble();
-    precision = this->ui->lineEdit_precision->text().toDouble();
-
-    h = 0.1;
-    X = x_begin;
-    N = (x_end - x_begin)/h + 2;
+    x_begin = this->ui->lineEdit_x_start->text().toFloat();
+    x_end = this->ui->lineEdit_x_end->text().toFloat();
+    h = this->ui->lineEdit_step->text().toFloat();
+    precision = this->ui->lineEdit_precision->text().toFloat();
 
     for (int i = 0; i < res1.size(); i++)
     {
         x.push_back(res1.at(i).xi);
-        if (func == 0)
-        {
-            y.push_back(res1.at(i).vi);
-        }
-        else if (func == 1)
-        {
-            y.push_back(X*X);
-        }
-        else if (func == 2)
-        {
-            y.push_back(X*X*X);
-        }
-        
-        X+=h;
+        y.push_back(res1.at(i).vi);
+        std::cout<<res1.at(i).vi<<std::endl;
     }
 
     this->ui->plot->addGraph();
@@ -119,12 +103,13 @@ void MainWindow::on_exit_button_clicked()
 
 void MainWindow::on_getdata_buttom_clicked()
 {
-    x_begin = this->ui->lineEdit_x_start->text().toDouble();
-    x_end = this->ui->lineEdit_x_end->text().toDouble();
-    h = this->ui->lineEdit_step->text().toDouble();
-    precision = this->ui->lineEdit_precision->text().toDouble();
-    x_start = this->ui->lineEdit_start_x->text().toDouble();
-    y_start = this->ui->lineEdit_start_y->text().toDouble();
+    x_begin = this->ui->lineEdit_x_start->text().toFloat();
+    x_end = this->ui->lineEdit_x_end->text().toFloat();
+    h = this->ui->lineEdit_step->text().toFloat();
+    precision = this->ui->lineEdit_precision->text().toFloat();
+    x_start = this->ui->lineEdit_start_x->text().toFloat();
+    y_start = this->ui->lineEdit_start_y->text().toFloat();
+    N = (x_end - x_begin)/h; 
 
     res1 = utils::RK4(test_rhs, utils::make_config(x_begin, x_end, x_start, y_start, 0.f, h, N, LEC, precision));
 }

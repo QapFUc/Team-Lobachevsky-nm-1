@@ -3,7 +3,7 @@
 
 inline float utils::StepRK4(std::function<float(float,float)> rhs, const float& x, const float& u, const float& step) {
 
-    //LOG_INFO_CLI("Start RK4 step with following config", x, u, step);
+    LOG_INFO_CLI("Start RK4 step with following config", x, u, step);
 
     float new_u, k1, k2, k3, k4;
     k1 = rhs(x, u);
@@ -65,6 +65,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, const config& cfg)
                 LOG_ERROR_CLI(cfg);
             }
         }
+        LOG_INFO_CLI("RK4 close", cfg);
         return(table);
 
     } else if (not(cfg.LEC)){
@@ -76,6 +77,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, const config& cfg)
             tableRow row(xi, ui, 0.f, 0.f, 0.f, stepi, 0.f, 0.f, 0.f, 0.f);
             table.push_back(row);
         }
+        LOG_INFO_CLI("RK4 close", cfg);
         return(table);
     } else {
         LOG_INFO_CLI("Error in RK4", cfg);
