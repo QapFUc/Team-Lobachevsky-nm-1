@@ -44,7 +44,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, const config& cfg)
                 ui = u1;
                 xi = xi + stepi;
                 viv2i = std::abs(ui - u2);
-                tableRow row(xi, ui, u2, viv2i, LocalError, stepi, C1, C2, 0.f, 0.f);
+                tableRow row(xi, ui, u2, viv2i, 0.f,LocalError, stepi, C1, C2, 0.f, 0.f);
                 table.push_back(row);
                 stepi = stepi * 2;
                 C2++;
@@ -53,7 +53,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, const config& cfg)
                 ui = u1;
                 xi = xi + stepi;
                 viv2i = std::abs(ui - u2);
-                tableRow row(xi, ui, u2, viv2i, LocalError, stepi, C1, C2, 0.f, 0.f);
+                tableRow row(xi, ui, u2, 0.f,viv2i, LocalError, stepi, C1, C2, 0.f, 0.f);
                 table.push_back(row);
                 i++;
                 
@@ -73,7 +73,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, const config& cfg)
             ui = StepRK4(rhs, xi, ui, stepi);
             xi = xi + stepi;
             i++;
-            tableRow row(xi, ui, 0.f, 0.f, 0.f, stepi, 0.f, 0.f, 0.f, 0.f);
+            tableRow row(xi, ui, 0.f, 0.f,0.f, 0.f, stepi, 0.f, 0.f, 0.f, 0.f);
             table.push_back(row);
         }
         return(table);
