@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <qcustomplot.h>
-
+#include "tablewindow.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -158,8 +158,8 @@ void MainWindow::on_radioButton_mistake_clicked(bool checked)
 
 void MainWindow::on_button_table_clicked()
 {
-    //Table_Window window;
-    //window.setModal(true);
-    //window.exec();
+    Ui_TableWindow window;
+    window.setModal(true);
+    window.exec();
 }
 

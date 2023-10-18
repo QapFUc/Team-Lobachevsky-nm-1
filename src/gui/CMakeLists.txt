@@ -4,6 +4,8 @@ file(GLOB_RECURSE SOURCES "*.cc" "*.h")
 
 add_executable(${TARGET_NAME} ${SOURCES}
     src/mainwindow.ui
+    tablewindow.h tablewindow.cpp tablewindow.ui
+    tablewindow.cpp
     )
 
 target_link_libraries(${TARGET_NAME} PRIVATE
