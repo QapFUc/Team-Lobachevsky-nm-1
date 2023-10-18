@@ -6,6 +6,7 @@ add_library(${TARGET_NAME} SHARED ${SOURCES})
 target_link_libraries(${TARGET_NAME} PRIVATE 
     Qt6::Core
     Qt6::Gui
+    Qt6::Widgets
     Qt6::PrintSupport
 )
 

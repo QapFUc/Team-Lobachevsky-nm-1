@@ -158,7 +158,7 @@ void MainWindow::on_radioButton_mistake_clicked(bool checked)
 
 void MainWindow::on_button_table_clicked()
 {
-    Ui_TableWindow window;
+    TableWindow window;
     window.setModal(true);
     window.exec();
 }

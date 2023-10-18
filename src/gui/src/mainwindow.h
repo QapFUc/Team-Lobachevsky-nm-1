@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QTWidgets>
+#include <QWidget>
 #include <QVector>
 
 QT_BEGIN_NAMESPACE

@@ -2,11 +2,7 @@ set(TARGET_NAME nm_gui)
 
 file(GLOB_RECURSE SOURCES "*.cc" "*.h")
 
-add_executable(${TARGET_NAME} ${SOURCES}
-    src/mainwindow.ui
-    tablewindow.h tablewindow.cpp tablewindow.ui
-    tablewindow.cpp
-    )
+add_executable(${TARGET_NAME} ${SOURCES})
 
 target_link_libraries(${TARGET_NAME} PRIVATE
     Qt6::Core 
