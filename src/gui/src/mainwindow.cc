@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     func = 0;
 
+    
+
     //x_begin = -3;
     //x_end = 3+h;
 
@@ -121,8 +123,10 @@ void MainWindow::on_getdata_buttom_clicked()
     x_end = this->ui->lineEdit_x_end->text().toDouble();
     h = this->ui->lineEdit_step->text().toDouble();
     precision = this->ui->lineEdit_precision->text().toDouble();
+    x_start = this->ui->lineEdit_start_x->text().toDouble();
+    y_start = this->ui->lineEdit_start_y->text().toDouble();
 
-
+    resultTable res1 = utils::RK4(float test_rhs(float x, float v) {return  -(4./2.) * v; }, utils::make_config(x_begin, x_end, x_start, y_start, 0.f, h, N, LEC, precision));
 }
 
 
@@ -195,3 +199,4 @@ void MainWindow::on_comboBox_activated(int index)
 {
     func = index;
 }
+

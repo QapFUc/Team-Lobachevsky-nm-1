@@ -44,12 +44,17 @@ private slots:
 
     void on_comboBox_activated(int index);
 
+    float test_rhs(float x, float v) {
+        return  -(4./2.) * v;
+    };
+
 private:
     Ui::MainWindow *ui;
-    double h, X;
+    float h, X;
     bool LEC;
-    double x_begin, x_end;
-    double precision;
+    float x_begin, x_end;
+    float x_start, y_start;
+    float precision;
     int N;
     int func;
     int count_plot = 0;
