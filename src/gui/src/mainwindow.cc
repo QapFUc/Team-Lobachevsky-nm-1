@@ -55,7 +55,6 @@ void MainWindow::on_button_plot_clicked()
     {
         x.push_back(res1.at(i).xi);
         y.push_back(res1.at(i).vi);
-        std::cout<<res1.at(i).vi<<std::endl;
     }
 
     this->ui->plot->addGraph();

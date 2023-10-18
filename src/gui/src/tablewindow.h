@@ -17,6 +17,7 @@ public:
     explicit TableWindow(QWidget *parent = nullptr);
     ~TableWindow();
     void setData(const resultTable& res1);
+    void createUI();
 
 private:
     Ui::TableWindow *ui;
