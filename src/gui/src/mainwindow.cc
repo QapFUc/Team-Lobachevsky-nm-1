@@ -68,7 +68,7 @@ void MainWindow::on_button_plot_clicked()
 
 void MainWindow::on_button_clear_clicked()
 {
-    this->ui->plot->graph(0)->data()->clear();
+    this->ui->plot->graph()->data()->clear();
     this->ui->plot->replot();
     this->ui->plot->update();
     x_begin = 0;
