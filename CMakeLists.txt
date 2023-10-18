@@ -16,16 +16,11 @@ if(ENABLE_QT6)
     find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui PrintSupport PATHS ${QT6_LIB_PATH})
 endif()
 
-# include_directories("${QT6_LIB_PATH}/include")
-
 add_subdirectory(src)
 
 add_executable(dbg_main main.cc)
 target_link_libraries(dbg_main PRIVATE 
     nm::core
 )
-
-
-target_include_directories(dbg_main PRIVATE src/core/include)
 
 
