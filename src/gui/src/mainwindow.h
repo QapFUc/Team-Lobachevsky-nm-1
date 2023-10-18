@@ -5,6 +5,8 @@
 #include <QWidget>
 #include <QVector>
 
+#include "nmlib.hpp"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -58,6 +60,7 @@ private:
     int N;
     int func;
     int count_plot = 0;
+    resultTable res1;
     
 };
 #endif // MAINWINDOW_H

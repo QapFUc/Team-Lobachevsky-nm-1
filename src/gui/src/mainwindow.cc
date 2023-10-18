@@ -55,12 +55,12 @@ void MainWindow::on_button_plot_clicked()
     X = x_begin;
     N = (x_end - x_begin)/h + 2;
 
-    for (X = x_begin; X <= x_end; X+=h)
+    for (int i = 0; i < res1.size(); i++)
     {
-        x.push_back(X);
+        x.push_back(res1.at(i).xi);
         if (func == 0)
         {
-            y.push_back(X);
+            y.push_back(res1.at(i).vi);
         }
         else if (func == 1)
         {
@@ -126,7 +126,7 @@ void MainWindow::on_getdata_buttom_clicked()
     x_start = this->ui->lineEdit_start_x->text().toDouble();
     y_start = this->ui->lineEdit_start_y->text().toDouble();
 
-    resultTable res1 = utils::RK4(test_rhs, utils::make_config(x_begin, x_end, x_start, y_start, 0.f, h, N, LEC, precision));
+    res1 = utils::RK4(test_rhs, utils::make_config(x_begin, x_end, x_start, y_start, 0.f, h, N, LEC, precision));
 }
 
 
