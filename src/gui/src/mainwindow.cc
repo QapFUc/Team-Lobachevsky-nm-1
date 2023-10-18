@@ -176,6 +176,7 @@ void MainWindow::on_button_table_clicked()
 {
     TableWindow window;
     window.setModal(true);
+    window.setData(res1);
     window.exec();
 }
 
