@@ -10,6 +10,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
+option(ENABLE_QT6 "Enables qt6 package" ON)
+
 if(ENABLE_QT6)
     find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui PrintSupport PATHS ${QT6_LIB_PATH})
 endif()
