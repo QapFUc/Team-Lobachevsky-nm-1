@@ -126,7 +126,7 @@ void MainWindow::on_getdata_buttom_clicked()
     x_start = this->ui->lineEdit_start_x->text().toDouble();
     y_start = this->ui->lineEdit_start_y->text().toDouble();
 
-    resultTable res1 = utils::RK4(float test_rhs(float x, float v) {return  -(4./2.) * v; }, utils::make_config(x_begin, x_end, x_start, y_start, 0.f, h, N, LEC, precision));
+    resultTable res1 = utils::RK4(test_rhs, utils::make_config(x_begin, x_end, x_start, y_start, 0.f, h, N, LEC, precision));
 }
 
 

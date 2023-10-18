@@ -44,7 +44,7 @@ private slots:
 
     void on_comboBox_activated(int index);
 
-    float test_rhs(float x, float v) {
+    static float test_rhs(float x, float v) {
         return  -(4./2.) * v;
     };
 
