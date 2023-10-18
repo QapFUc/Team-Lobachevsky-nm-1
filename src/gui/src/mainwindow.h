@@ -42,12 +42,17 @@ private slots:
 
     void on_button_table_clicked();
 
+    void on_comboBox_activated(int index);
+
 private:
     Ui::MainWindow *ui;
     double h, X;
+    bool LEC;
     double x_begin, x_end;
     double precision;
     int N;
-    QVector<double> x, y;
+    int func;
+    int count_plot = 0;
+    
 };
 #endif // MAINWINDOW_H

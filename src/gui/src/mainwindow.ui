@@ -110,7 +110,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>300</y>
+      <y>270</y>
       <width>191</width>
       <height>26</height>
      </rect>
@@ -128,31 +128,6 @@
      </item>
      <item>
       <widget class="QLineEdit" name="lineEdit_x_end"/>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_3">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>340</y>
-      <width>191</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QLabel" name="label_y">
-       <property name="text">
-        <string>y:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_y_start"/>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_y_end"/>
      </item>
     </layout>
    </widget>
@@ -289,6 +264,31 @@
     <property name="text">
      <string>get data</string>
     </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>320</y>
+      <width>191</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>test task</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>task 1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>task 2</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

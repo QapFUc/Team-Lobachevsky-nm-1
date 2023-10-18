@@ -6,6 +6,7 @@ TableWindow::TableWindow(QWidget *parent) :
     ui(new Ui::TableWindow)
 {
     ui->setupUi(this);
+    //output.cfg
 }
 
 TableWindow::~TableWindow()
