@@ -80,7 +80,7 @@ inline float StepRK4(std::function<float(float,float)> rhs, const float& x, cons
 /// step RK4 for System Of two Equations 
 inline std::vector<float> StepRK4_SOE(std::function<float(float,float,float)> rhs1, std::function<float(float,float,float)> rhs2, const float& x, const float& u, const float& y, const float& step);
 
-resultTable RK4_LS(std::function<float(float,float)> rhs, const config& cfg);
+resultTable RK4_LS(std::function<float(float,float, float)> rhs, const config& cfg);
 
 } // namespace utils
 

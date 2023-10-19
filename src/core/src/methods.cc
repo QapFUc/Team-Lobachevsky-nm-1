@@ -171,6 +171,6 @@ resultTable utils::RK4_SOE(std::function<float(float, float, float)> rhs1, std::
     }
 }
 
-resultTable RK4_LS(std::function<float(float, float, float)> rhs, const config& cfg) {
+resultTable utils::RK4_LS(std::function<float(float, float, float)> rhs, const config& cfg) {
     return utils::RK4_SOE(rhs, [&](float x, float u, float du){ return u; }, cfg);
 }
