@@ -8,27 +8,26 @@ TableWindow::TableWindow(QWidget *parent) :
     ui(new Ui::TableWindow)
 {
     ui->setupUi(this);
-    this->createUI();
+
+    ui->tableWidget->setRowCount(res2.size());
+    ui->tableWidget->setColumnCount(12);
+
+    std::cout<<res2.size()std::endl;
+
+    ui->tableWidget->setHorizontalHeaderLabels(QStringList()<<"xi"<<"vi"<<"yi"<<"v2i"<<"y2i"<<"viv2i"<<"LE"<<"hi"<<"C1"<<"C2"<<"ui"<<"uvi");
     
+    for (int i = 0; i < ui->tableWidget->rowCount();i++)
+        {
+            QTableWidgetItem *item = new QTableWidgetItem(res2.at(i).xi);
+            ui->tableWidget->setItem(i, 1, item);
+        }
 }
 TableWindow::~TableWindow()
 {
     delete ui;
 }
-void TableWindow::createUI()
-{
-    this->ui->tableWidget->setColumnCount(11);
-    this->ui->tableWidget->setRowCount(1000);
-    for (int i = 0; i < res1.size(); i++)
-    {
-        LOG_DEBUG_CLI("Result is ", res1.at(1).xi);
-        QTableWidgetItem *item = new QTableWidgetItem();
-        this->ui->tableWidget->setItem(i,0, new QTableWidgetItem(res1.at(1).xi));
-    }
-}
 
-
-void TableWindow::setData(const resultTable& res1)
+void TableWindow::setData(resultTable res1)
 {
-    this->res1 = res1;
+    this->res2 = res1;
 }

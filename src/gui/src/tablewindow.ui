@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>702</width>
+    <width>797</width>
     <height>508</height>
    </rect>
   </property>
@@ -18,65 +18,10 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>701</width>
+     <width>791</width>
      <height>501</height>
     </rect>
    </property>
-   <column>
-    <property name="text">
-     <string>xi</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>vi</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>yi</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>v2i</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>viv2i</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>LE</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>hi</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>C1</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>C2</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>ui</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>uvi</string>
-    </property>
-   </column>
   </widget>
  </widget>
  <resources/>

@@ -16,12 +16,12 @@ class TableWindow : public QDialog
 public:
     explicit TableWindow(QWidget *parent = nullptr);
     ~TableWindow();
-    void setData(const resultTable& res1);
+    void setData(resultTable res1);
     void createUI();
 
 private:
     Ui::TableWindow *ui;
-    resultTable res1;
+    resultTable res2;
 };
 
 #endif // TABLEWINDOW_H
