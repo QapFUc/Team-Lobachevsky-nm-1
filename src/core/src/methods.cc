@@ -105,7 +105,7 @@ inline std::vector<float> utils::StepRK4_SOE(std::function<float(float,float,flo
     return(res);
 }
 
-resultTable RK4_SOE(std::function<float(float, float, float)> rhs1, std::function<float(float, float, float)> rhs2, const config& cfg) {
+resultTable utils::RK4_SOE(std::function<float(float, float, float)> rhs1, std::function<float(float, float, float)> rhs2, const config& cfg) {
     resultTable table;
     float xi, x_min, x_max, ui, yi, stepi, N_max, eps;
     uint C1, C2;
@@ -172,5 +172,5 @@ resultTable RK4_SOE(std::function<float(float, float, float)> rhs1, std::functio
 }
 
 resultTable RK4_LS(std::function<float(float, float, float)> rhs, const config& cfg) {
-    return RK4_SOE(rhs, [&](float x, float u, float du){ return u; }, cfg);
+    return utils::RK4_SOE(rhs, [&](float x, float u, float du){ return u; }, cfg);
 }
