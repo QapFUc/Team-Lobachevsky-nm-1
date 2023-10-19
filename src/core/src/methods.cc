@@ -46,7 +46,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, const config& cfg)
                 ui = u1;
                 xi = xi + stepi;
                 viv2i = std::abs(ui - u2);
-                tableRow row(xi, ui, u2, viv2i, 0.f,LocalError, stepi, C1, C2, 0.f, 0.f);
+                tableRow row(xi, ui, 0.f, u2, viv2i, 0.f,LocalError, stepi, C1, C2, 0.f, 0.f);
                 table.push_back(row);
                 stepi = stepi * 2;
                 C2++;
@@ -55,7 +55,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, const config& cfg)
                 ui = u1;
                 xi = xi + stepi;
                 viv2i = std::abs(ui - u2);
-                tableRow row(xi, ui, u2, 0.f,viv2i, LocalError, stepi, C1, C2, 0.f, 0.f);
+                tableRow row(xi, ui, 0.f, u2, 0.f,viv2i, LocalError, stepi, C1, C2, 0.f, 0.f);
                 table.push_back(row);
                 i++;
                 
@@ -75,7 +75,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, const config& cfg)
             ui = StepRK4(rhs, xi, ui, stepi);
             xi = xi + stepi;
             i++;
-            tableRow row(xi, ui, 0.f, 0.f,0.f, 0.f, stepi, 0.f, 0.f, 0.f, 0.f);
+            tableRow row(xi, ui, 0.f, 0.f,0.f,0.f, 0.f, stepi, 0.f, 0.f, 0.f, 0.f);
             table.push_back(row);
         }
         return(table);
@@ -84,14 +84,14 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, const config& cfg)
     }
 }
 
-inline float utils::StepRK4_SOE(std::function<float(float,float,float)> rhs1,std::function<float(float,float,float)> rhs2, const float& x, const float& u, const float& y, const float& step) {
+inline std::vector<float> utils::StepRK4_SOE(std::function<float(float,float,float)> rhs1,std::function<float(float,float,float)> rhs2, const float& x, const float& u, const float& y, const float& step) {
 
     //LOG_INFO_CLI("Start RK4 step with following config", x, u, step);
 
-    float new_u, new_y, k1, k2, k3, k4;
+    float new_u, new_y, k11, k12, k21, k22, k31, k32, k41, k42;
     std::vector<float> res;
     k11 = rhs1(x, u, y);
-    k12 = rhs2(x, u, y)
+    k12 = rhs2(x, u, y);
     k21 = rhs1(x + step/2, u + step/2 * k11, y + step/2 * k12);
     k22 = rhs2(x + step/2, u + step/2 * k11, y + step/2 * k12);
     k31 = rhs1(x + step/2, u + step/2 * k21, y + step/2 * k22);
@@ -107,7 +107,7 @@ inline float utils::StepRK4_SOE(std::function<float(float,float,float)> rhs1,std
 
 resultTable RK4_SOE(std::function<float(float, float, float)> rhs1, std::function<float(float, float, float)> rhs2, const config& cfg) {
     resultTable table;
-    float xi, x_min, x_max, ui, yi, yi, stepi, N_max, eps;
+    float xi, x_min, x_max, ui, yi, stepi, N_max, eps;
     uint C1, C2;
     std::vector<float> tmp1, tmp2;
     C1 = 0;
@@ -121,17 +121,18 @@ resultTable RK4_SOE(std::function<float(float, float, float)> rhs1, std::functio
     N_max = cfg.N_max;
     eps = cfg.eps;
     if (cfg.LEC) {
-        float LocalError;
+        float LocalError, viv2i;
+        int i = 0;
         tmp1 = utils::StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi);
         tmp2 = utils::StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi/2);
         tmp2 = utils::StepRK4_SOE(rhs1, rhs2, xi, tmp2.at(0), tmp2.at(1), stepi/2);
-        LocalError = std::max(std::abs(tmp1.at(0) - tmp2(0)), std::abs(tmp1.at(1)-tmp2.at(1))) / 15;
+        LocalError = std::max(std::abs(tmp1.at(0) - tmp2.at(0)), std::abs(tmp1.at(1)-tmp2.at(1))) / 15;
         if (LocalError < eps/std::pow(2,5)) {
             yi = tmp1.at(1);
             ui = tmp1.at(0);
             xi = xi + stepi;
-            viv2i = std::abs(ui - u2);
-            tableRow row(xi, ui, yi, u2, viv2i, LocalError, stepi, C1, C2, 0.f, 0.f);
+            viv2i = std::abs(ui - tmp2.at(0));
+            tableRow row(xi, ui, yi, tmp1.at(0), tmp2.at(1), viv2i, LocalError, stepi, C1, C2, 0.f, 0.f);
             table.push_back(row);
             stepi = stepi * 2;
             C2++;
@@ -140,8 +141,8 @@ resultTable RK4_SOE(std::function<float(float, float, float)> rhs1, std::functio
             yi = tmp1.at(1);
             ui = tmp1.at(0);
             xi = xi + stepi;
-            viv2i = std::abs(ui - u2);
-            tableRow row(xi, ui, yi, u2, viv2i, LocalError, stepi, C1, C2, 0.f, 0.f);
+            viv2i = std::abs(ui - tmp2.at(0));
+            tableRow row(xi, ui, yi, tmp2.at(0), tmp2.at(1), viv2i, LocalError, stepi, C1, C2, 0.f, 0.f);
             table.push_back(row);
             i++; 
         } else if (LocalError > eps) {
@@ -161,7 +162,7 @@ resultTable RK4_SOE(std::function<float(float, float, float)> rhs1, std::functio
             ui = tmp1.at(0);
             xi = xi + stepi;
             i++;
-            tableRow row(xi, ui, 0.f, 0.f, 0.f, stepi, 0.f, 0.f, 0.f, 0.f);
+            tableRow row(xi, ui, yi, 0.f, 0.f, 0.f, 0.f, stepi, 0.f, 0.f, 0.f, 0.f);
             table.push_back(row);
         }
         return(table);

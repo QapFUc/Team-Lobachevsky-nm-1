@@ -78,7 +78,7 @@ resultTable RK4_SOE(std::function<float(float, float, float)> rhs1, std::functio
 inline float StepRK4(std::function<float(float,float)> rhs, const float& x, const float& u, const float& step);
 
 /// step RK4 for System Of two Equations 
-inline float StepRK4_SOE(std::function<float(float,float,float)> rhs1, std::function<float(float,float,float)> rhs2, const float& x, const float& u, const float& y, const float& step);
+inline std::vector<float> StepRK4_SOE(std::function<float(float,float,float)> rhs1, std::function<float(float,float,float)> rhs2, const float& x, const float& u, const float& y, const float& step);
 
 resultTable RK4_LS(std::function<float(float,float)> rhs, const config& cfg);
 
