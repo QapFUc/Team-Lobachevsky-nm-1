@@ -164,6 +164,7 @@ resultTable utils::RK4_SOE(std::function<float(float, float, float)> rhs1, std::
                 LOG_ERROR_CLI(cfg);
             }
         }
+        return(table);
     } else if (not(cfg.LEC)){
         LOG_DEBUG_CLI("Start RK4_SOE without localstecpcontrol", cfg);
         int i = 0;
