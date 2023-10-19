@@ -1,5 +1,7 @@
 #include "nmlib.hpp"
+
 #include <cmath>
+#include <algorithm>
 
 inline float utils::StepRK4(std::function<float(float,float)> rhs, const float& x, const float& u, const float& step) {
 
@@ -87,7 +89,7 @@ inline float utils::StepRK4_SOE(std::function<float(float,float,float)> rhs1,std
     //LOG_INFO_CLI("Start RK4 step with following config", x, u, step);
 
     float new_u, new_y, k1, k2, k3, k4;
-    vector<float> res;
+    std::vector<float> res;
     k11 = rhs1(x, u, y);
     k12 = rhs2(x, u, y)
     k21 = rhs1(x + step/2, u + step/2 * k11, y + step/2 * k12);
@@ -107,7 +109,7 @@ resultTable RK4_SOE(std::function<float(float, float, float)> rhs1, std::functio
     resultTable table;
     float xi, x_min, x_max, ui, yi, yi, stepi, N_max, eps;
     uint C1, C2;
-    vector<float> tmp1, tmp2;
+    std::vector<float> tmp1, tmp2;
     C1 = 0;
     C2 = 0;
     xi = cfg.x_0;
@@ -120,10 +122,10 @@ resultTable RK4_SOE(std::function<float(float, float, float)> rhs1, std::functio
     eps = cfg.eps;
     if (cfg.LEC) {
         float LocalError;
-        tmp1 = StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi);
-        tmp2 = StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi/2);
-        tmp2 = StepRK4_SOE(rhs1, rhs2, xi, tmp2.at(0), tmp2.at(1), stepi/2);
-        LocalError = std::Maximum(std::abs(tmp1.at(0) - tmp2(0)), std::abs(tmp1.at(1)-tmp2.at(1))) / 15
+        tmp1 = utils::StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi);
+        tmp2 = utils::StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi/2);
+        tmp2 = utils::StepRK4_SOE(rhs1, rhs2, xi, tmp2.at(0), tmp2.at(1), stepi/2);
+        LocalError = std::max(std::abs(tmp1.at(0) - tmp2(0)), std::abs(tmp1.at(1)-tmp2.at(1))) / 15;
         if (LocalError < eps/std::pow(2,5)) {
             yi = tmp1.at(1);
             ui = tmp1.at(0);
@@ -154,7 +156,7 @@ resultTable RK4_SOE(std::function<float(float, float, float)> rhs1, std::functio
     } else if (not(cfg.LEC)){
         int i = 0;
         while (xi >= x_min && xi <= x_max && i < N_max) {
-            tmp1 = StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi);
+            tmp1 = utils::StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi);
             yi = tmp1.at(1);
             ui = tmp1.at(0);
             xi = xi + stepi;
@@ -166,4 +168,8 @@ resultTable RK4_SOE(std::function<float(float, float, float)> rhs1, std::functio
     } else {
         LOG_INFO_CLI("Error in RK4", cfg);
     }
+}
+
+resultTable RK4_LS(std::function<float(float, float, float)> rhs, const config& cfg) {
+    return RK4_SOE(rhs, [](float x, float u, float du){ return u; }, cfg);
 }
