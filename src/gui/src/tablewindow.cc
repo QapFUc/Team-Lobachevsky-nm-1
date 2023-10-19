@@ -12,7 +12,7 @@ TableWindow::TableWindow(QWidget *parent) :
     ui->tableWidget->setRowCount(res2.size());
     ui->tableWidget->setColumnCount(12);
 
-    std::cout<<res2.size()std::endl;
+    std::cout<<res2.size()<<std::endl;
 
     ui->tableWidget->setHorizontalHeaderLabels(QStringList()<<"xi"<<"vi"<<"yi"<<"v2i"<<"y2i"<<"viv2i"<<"LE"<<"hi"<<"C1"<<"C2"<<"ui"<<"uvi");
     
@@ -29,5 +29,5 @@ TableWindow::~TableWindow()
 
 void TableWindow::setData(resultTable res1)
 {
-    this->res2 = res1;
+    res2 = res1;
 }
