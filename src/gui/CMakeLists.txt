@@ -19,8 +19,6 @@ set_target_properties(${TARGET_NAME} PROPERTIES
 )
 
 target_include_directories(${TARGET_NAME} PRIVATE include)
-target_include_directories(${TARGET_NAME} PRIVATE ../qcplib/include)
-target_include_directories(${TARGET_NAME} PRIVATE ../../src/core/include)
 
 
 

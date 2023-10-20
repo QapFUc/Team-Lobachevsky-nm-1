@@ -9,12 +9,14 @@
 struct tableRow {
 /// @todo write the constructor for init
 // one row of table for nm output (see actual task)
-    tableRow(float xi, float vi, float v2i, float viv2i,
+    tableRow(float xi, float vi, float yi, float v2i, float y2i, float viv2i,
             float LE, float hi, uint C1, uint C2, float ui,
-            float uvi) : xi(xi), vi(vi), v2i(v2i), viv2i(viv2i), LE(LE), hi(hi), C1(C1), C2(C2), ui(ui), uvi(uvi) {}
+            float uvi) : xi(xi), vi(vi), yi(yi), v2i(v2i), y2i(y2i), viv2i(viv2i), LE(LE), hi(hi), C1(C1), C2(C2), ui(ui), uvi(uvi) {}
     float xi;
     float vi;
     float v2i;
+    float yi;
+    float y2i;
     float viv2i;
     float LE;
     float hi;
@@ -23,12 +25,12 @@ struct tableRow {
     float ui;
     float uvi;
 
-    std::tuple<float, float, float, float, float, float, uint, uint, float, float> get_tuple() {
-        return std::tuple<float, float, float, float, float, float, uint, uint, float, float> (xi, vi, v2i, viv2i, LE, hi, C1, C2, ui, uvi);}
+    std::tuple<float, float, float, float, float, float, float, uint, uint, float, float> get_tuple() {
+        return std::tuple<float, float, float, float, float, float, float, uint, uint, float, float> (xi, vi, yi, v2i, viv2i, LE, hi, C1, C2, ui, uvi);}
 
 
     friend std::ostream& operator<< (std::ostream& os, const tableRow& row) {
-        os << "xi = " <<row.xi << ", vi = " << row.vi << ", v2i = " << row.v2i << ", viv2i = " << row.viv2i << ", LE = " << row.LE << ", hi = " << row.hi << ", C1 = " 
+        os << "xi = " <<row.xi << ", vi = " << row.vi << ", yi = " << row.yi << ", y2i = " << row.y2i << ", v2i = " << row.v2i << ", viv2i = " << row.viv2i << ", LE = " << row.LE << ", hi = " << row.hi << ", C1 = " 
         << row.C1 << ", C2 = " << row.C2 << ", ui = " << row.ui << ", uvi = " << row.uvi;
         return os;
     }
@@ -70,10 +72,16 @@ config make_config(const float& x_min, const float& x_max, const float& x_0, con
 resultTable RK4(std::function<float(float,float)> rhs, const config& cfg);
 
 /// @brief  RK4 for System Of two Equations 
-resultTable RK4_SOE(std::function<float(float, float, float)>, const config& cfg);
+resultTable RK4_SOE(std::function<float(float, float, float)> rhs1, std::function<float(float, float, float)> rhs2, const config& cfg);
 
 /// step for method
 inline float StepRK4(std::function<float(float,float)> rhs, const float& x, const float& u, const float& step);
+
+/// step RK4 for System Of two Equations 
+inline std::vector<float> StepRK4_SOE(std::function<float(float,float,float)> rhs1, std::function<float(float,float,float)> rhs2, const float& x, const float& u, const float& y, const float& step);
+
+resultTable RK4_LS(std::function<float(float,float, float)> rhs, const config& cfg);
+
 } // namespace utils
 
 template<class Return, class... Args>
