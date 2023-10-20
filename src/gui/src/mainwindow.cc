@@ -62,7 +62,6 @@ void MainWindow::on_button_plot_clicked()
     this->ui->plot->graph(count_plot)->addData(x, y);
     this->ui->plot->replot();
     count_plot++;
-    
 }
 
 
@@ -114,20 +113,22 @@ void MainWindow::on_getdata_buttom_clicked()
     x_start = this->ui->lineEdit_start_x->text().toFloat();
     y_start = this->ui->lineEdit_start_y->text().toFloat();
     du = this->ui->lineEdit_last->text().toFloat();
-    N = (x_end - x_begin)/h; 
+    N = (x_end - x_begin)/h; /// @todo remove
 
+    config cfg = {x_begin, x_end, x_start, y_start, du, h, N, LEC, precision};
 
-    if (func == 0)
-    {
-        res1 = utils::RK4(test_rhs, utils::make_config(x_begin, x_end, x_start, y_start, 0.f, h, N, LEC, precision));
-    }
-    else if (func == 1)
-    {
-        res1 = utils::RK4(task1_rhs, utils::make_config(x_begin, x_end, x_start, y_start, 0.f, h, N, LEC, precision));
-    }
-    else if (func == 2)
-    {
-        res1 = utils::RK4_SOE(task21_rhs, task22_rhs, utils::make_config(x_begin, x_end, x_start, y_start, du, h, N, LEC, precision));
+    switch (func) {
+    case 0:
+        res1 = task_rk4(test_rhs, cfg);
+        break;
+    case 1:
+        res1 = task_rk4(task1_rhs, cfg);
+        break;
+    case 2:
+        res1 = task_rk4_lseq(task21_rhs, cfg);
+        break;
+    default:
+        break;
     }
 }
 
@@ -197,46 +198,17 @@ void MainWindow::on_button_table_clicked()
 
     ui->tableWidget->setHorizontalHeaderLabels(QStringList()<<"xi"<<"vi"<<"yi"<<"v2i"<<"y2i"<<"viv2i"<<"LE"<<"hi"<<"C1"<<"C2"<<"ui"<<"uvi");
     
-    for (int i = 0; i < res1.size(); i++)
-        {
-            QTableWidgetItem *item1 = new QTableWidgetItem(QString::number(res1.at(i).xi));
-            ui->tableWidget->setItem(i, 0, item1);
-
-            QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(res1.at(i).vi));
-            ui->tableWidget->setItem(i, 1, item2);
-
-            QTableWidgetItem *item11 = new QTableWidgetItem(QString::number(res1.at(i).yi));
-            ui->tableWidget->setItem(i, 2, item11);
-
-            QTableWidgetItem *item12 = new QTableWidgetItem(QString::number(res1.at(i).v2i));
-            ui->tableWidget->setItem(i, 3, item12);
-
-            QTableWidgetItem *item3 = new QTableWidgetItem(QString::number(res1.at(i).y2i));
-            ui->tableWidget->setItem(i, 4, item3);
-
-            QTableWidgetItem *item4 = new QTableWidgetItem(QString::number(res1.at(i).viv2i));
-            ui->tableWidget->setItem(i, 5, item4);
-
-            QTableWidgetItem *item5 = new QTableWidgetItem(QString::number(res1.at(i).LE));
-            ui->tableWidget->setItem(i, 6, item5);
-
-            QTableWidgetItem *item6 = new QTableWidgetItem(QString::number(res1.at(i).hi));
-            ui->tableWidget->setItem(i, 7, item6);
-
-            QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(res1.at(i).C1));
-            ui->tableWidget->setItem(i, 8, item7);
-
-            QTableWidgetItem *item8 = new QTableWidgetItem(QString::number(res1.at(i).C2));
-            ui->tableWidget->setItem(i, 9, item8);
-
-            QTableWidgetItem *item9 = new QTableWidgetItem(QString::number(res1.at(i).ui));
-            ui->tableWidget->setItem(i, 10, item9);
-
-            QTableWidgetItem *item10 = new QTableWidgetItem(QString::number(res1.at(i).uvi));
-            ui->tableWidget->setItem(i, 11, item10);
-
-
-        }
+    for (int i = 0; i < res1.size(); i++) {
+            auto row_tuple = res1.at(i).get_tuple();
+            int j = 0;
+            apply_elemwise([&](const auto& elem){ 
+                QTableWidgetItem *item = new QTableWidgetItem(QString::number(elem));
+                ui->tableWidget->setItem(i, j, item);
+                j++;
+            }, 
+            row_tuple, 
+            std::make_index_sequence<std::tuple_size<decltype(row_tuple)>::value>{});
+    }
 }
 
 

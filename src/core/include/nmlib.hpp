@@ -3,6 +3,7 @@
 #include <functional>
 #include <map>
 #include <tuple>
+#include <cmath>
 
 #include "logger.hpp"
 
@@ -84,16 +85,25 @@ resultTable RK4_LS(std::function<float(float,float, float)> rhs, const config& c
 
 } // namespace utils
 
-template<class Return, class... Args>
-class task {
-    config cfg;
-    std::function<Return(Args...)> rhs;
-    std::function<resultTable(std::function<Return(Args...)>, config)> method;
-    resultTable result;
-public:
-    task(std::function<Return(Args...)> _rhs, const config& _cfg, std::function<resultTable(std::function<Return(Args...)>, config)> _method) : cfg(_cfg), rhs(_rhs), method(_method) {}
-    resultTable operator()() {
-        result = method(rhs, cfg);
-        return result;
-    }
+template <class Func, class Tuple, std::size_t... Is>
+void apply_elemwise(Func&& f, const Tuple& tp, std::index_sequence<Is...>) {
+    (f(std::get<Is>(tp)), ...);
+}
+
+static std::function<resultTable(std::function<float(float, float)>, config)> task_rk4 = utils::RK4;
+
+static std::function<resultTable(std::function<float(float, float, float)>, config)> task_rk4_lseq = utils::RK4_LS;
+
+static float test_rhs(float x, float v) {
+    return  -(4./2.) * v;
+};
+
+static float task1_rhs(float x, float v)
+{
+    return (std::pow(x, 3) + 1)/(std::pow(x, 5) + 1);
+};
+
+static float task21_rhs(float x, float v, float y)
+{
+    return (y * std::abs(y) + y + v);
 };
