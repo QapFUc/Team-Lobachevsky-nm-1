@@ -115,7 +115,7 @@ void MainWindow::on_getdata_buttom_clicked()
     B = this->ui->lineEdit_b->text().toFloat();
     C = this->ui->lineEdit_c->text().toFloat();
 
-    config cfg = {x_begin, x_end, x_start, y_start, du, h, N, LEC, precision};
+    config cfg = {x_begin, x_end, x_start, y_start, du, h, N, LEC, precision, A, B, C};
 
     switch (func) {
     case 0:
@@ -125,7 +125,7 @@ void MainWindow::on_getdata_buttom_clicked()
         res1 = task_rk4(task1_rhs, cfg);
         break;
     case 2:
-        res1 = task_rk4_lseq(task21_rhs, cfg);
+        res1 = task_rk4_lseq(make_rhs(A, B, C), cfg);
         break;
     default:
         break;

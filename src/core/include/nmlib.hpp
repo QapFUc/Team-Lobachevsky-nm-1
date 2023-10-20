@@ -78,15 +78,15 @@ config make_config(const float& x_min, const float& x_max, const float& x_0, con
 resultTable RK4(std::function<float(float,float)> rhs, const config& cfg);
 
 /// @brief  RK4 for System Of two Equations 
-resultTable RK4_SOE(std::function<float(float, float, float, float, float, float)> rhs1, std::function<float(float, float, float)> rhs2, const config& cfg);
+resultTable RK4_SOE(std::function<float(float, float, float)> rhs1, std::function<float(float, float, float)> rhs2, const config& cfg);
 
 /// step for method
 inline float StepRK4(std::function<float(float,float)> rhs, const float& x, const float& u, const float& step);
 
 /// step RK4 for System Of two Equations 
-inline std::vector<float> StepRK4_SOE(std::function<float(float, float, float, float, float, float)> rhs1, std::function<float(float,float,float)> rhs2, const float& x, const float& u, const float& y, const float& step, const float& a, const float& b, const float& c );
+inline std::vector<float> StepRK4_SOE(std::function<float(float, float, float)> rhs1, std::function<float(float,float,float)> rhs2, const float& x, const float& u, const float& y, const float& step);
 
-resultTable RK4_LS(std::function<float(float, float, float, float, float, float)> rhs, const config& cfg);
+resultTable RK4_LS(std::function<float(float, float, float)> rhs, const config& cfg);
 
 } // namespace utils
 
@@ -112,3 +112,7 @@ static float task21_rhs(float x, float v, float y)
 {
     return (y * std::abs(y) + y + v);
 };
+
+static std::function<float(float, float, float)> make_rhs(float a, float b, float c) {
+    return [&](float x, float v, float y){ return (a*y * std::abs(y) + b*y + c*v);};
+}
