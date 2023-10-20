@@ -133,9 +133,7 @@ color-bg:rgb(255,255,255)</string>
      <item>
       <widget class="QLineEdit" name="lineEdit_precision">
        <property name="styleSheet">
-        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;
-color:rgb(0, 0, 0);
-color-bg:rgb(255,255,255)</string>
+        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;</string>
        </property>
       </widget>
      </item>
@@ -154,9 +152,7 @@ color-bg:rgb(255,255,255)</string>
      <item>
       <widget class="QLineEdit" name="lineEdit_step">
        <property name="styleSheet">
-        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;
-color:rgb(0, 0, 0);
-color-bg:rgb(255,255,255)</string>
+        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;</string>
        </property>
       </widget>
      </item>
@@ -187,18 +183,14 @@ color-bg:rgb(255,255,255)</string>
      <item>
       <widget class="QLineEdit" name="lineEdit_x_start">
        <property name="styleSheet">
-        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;
-color:rgb(0, 0, 0);
-color-bg:rgb(255,255,255)</string>
+        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLineEdit" name="lineEdit_x_end">
        <property name="styleSheet">
-        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;
-color:rgb(0, 0, 0);
-color-bg:rgb(255,255,255)</string>
+        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;</string>
        </property>
       </widget>
      </item>
@@ -209,7 +201,7 @@ color-bg:rgb(255,255,255)</string>
      <rect>
       <x>30</x>
       <y>330</y>
-      <width>191</width>
+      <width>194</width>
       <height>26</height>
      </rect>
     </property>
@@ -222,15 +214,23 @@ color:rgb(0, 0, 0);
 color-bg:rgb(255,255,255)</string>
        </property>
        <property name="text">
-        <string>Start:</string>
+        <string>Initial:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_start_x"/>
+      <widget class="QLineEdit" name="lineEdit_start_x">
+       <property name="styleSheet">
+        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_start_y"/>
+      <widget class="QLineEdit" name="lineEdit_start_y">
+       <property name="styleSheet">
+        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -463,7 +463,11 @@ color-bg:rgb(255,255,255)</string>
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_last"/>
+      <widget class="QLineEdit" name="lineEdit_last">
+       <property name="styleSheet">
+        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -492,9 +496,7 @@ color-bg:rgb(255,255,255)</string>
      <item>
       <widget class="QLineEdit" name="lineEdit_a">
        <property name="styleSheet">
-        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;
-color:rgb(0, 0, 0);
-color-bg:rgb(255,255,255)</string>
+        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;</string>
        </property>
       </widget>
      </item>
@@ -525,9 +527,7 @@ color-bg:rgb(255,255,255)</string>
      <item>
       <widget class="QLineEdit" name="lineEdit_b">
        <property name="styleSheet">
-        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;
-color:rgb(0, 0, 0);
-color-bg:rgb(255,255,255)</string>
+        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;</string>
        </property>
       </widget>
      </item>
@@ -558,9 +558,7 @@ color-bg:rgb(255,255,255)</string>
      <item>
       <widget class="QLineEdit" name="lineEdit_c">
        <property name="styleSheet">
-        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;
-color:rgb(0, 0, 0);
-color-bg:rgb(255,255,255)</string>
+        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;</string>
        </property>
       </widget>
      </item>
@@ -591,9 +589,7 @@ color-bg:rgb(255,255,255)</string>
      <item>
       <widget class="QLineEdit" name="lineEdit_n">
        <property name="styleSheet">
-        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;
-color:rgb(0, 0, 0);
-color-bg:rgb(255,255,255)</string>
+        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;</string>
        </property>
       </widget>
      </item>
