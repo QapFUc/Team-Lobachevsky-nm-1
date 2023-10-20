@@ -95,7 +95,7 @@ static std::function<resultTable(std::function<float(float, float)>, config)> ta
 static std::function<resultTable(std::function<float(float, float, float)>, config)> task_rk4_lseq = utils::RK4_LS;
 
 static float test_rhs(float x, float v) {
-    return  -(4./2.) * v;
+    return  2 * v;
 };
 
 static float task1_rhs(float x, float v)
