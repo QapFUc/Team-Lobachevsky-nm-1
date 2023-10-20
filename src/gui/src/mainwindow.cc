@@ -110,9 +110,22 @@ void MainWindow::on_getdata_buttom_clicked()
     precision = this->ui->lineEdit_precision->text().toFloat();
     x_start = this->ui->lineEdit_start_x->text().toFloat();
     y_start = this->ui->lineEdit_start_y->text().toFloat();
+    du = this->ui->lineEdit_last->text().toFloat();
     N = (x_end - x_begin)/h; 
 
-    res1 = utils::RK4(test_rhs, utils::make_config(x_begin, x_end, x_start, y_start, 0.f, h, N, LEC, precision));
+
+    if (func == 0)
+    {
+        res1 = utils::RK4(test_rhs, utils::make_config(x_begin, x_end, x_start, y_start, 0.f, h, N, LEC, precision));
+    }
+    else if (func == 1)
+    {
+        res1 = utils::RK4(task1_rhs, utils::make_config(x_begin, x_end, x_start, y_start, 0.f, h, N, LEC, precision));
+    }
+    else if (func == 2)
+    {
+        res1 = utils::RK4_SOE(task21_rhs, task22_rhs, utils::make_config(x_begin, x_end, x_start, y_start, du, h, N, LEC, precision));
+    }
 }
 
 
@@ -166,10 +179,7 @@ void MainWindow::on_radioButton_violet_clicked(bool checked)
 
 void MainWindow::on_radioButton_mistake_clicked(bool checked)
 {
-    if(checked)
-    {
-        bool LEC = true;
-    }
+    LEC = checked;
 }
 
 
@@ -192,29 +202,35 @@ void MainWindow::on_button_table_clicked()
             QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(res1.at(i).vi));
             ui->tableWidget->setItem(i, 1, item2);
 
-            QTableWidgetItem *item3 = new QTableWidgetItem(QString::number(res1.at(i).v2i));
-            ui->tableWidget->setItem(i, 2, item3);
+            QTableWidgetItem *item11 = new QTableWidgetItem(QString::number(res1.at(i).yi));
+            ui->tableWidget->setItem(i, 2, item11);
+
+            QTableWidgetItem *item12 = new QTableWidgetItem(QString::number(res1.at(i).v2i));
+            ui->tableWidget->setItem(i, 3, item12);
+
+            QTableWidgetItem *item3 = new QTableWidgetItem(QString::number(res1.at(i).y2i));
+            ui->tableWidget->setItem(i, 4, item3);
 
             QTableWidgetItem *item4 = new QTableWidgetItem(QString::number(res1.at(i).viv2i));
-            ui->tableWidget->setItem(i, 3, item4);
+            ui->tableWidget->setItem(i, 5, item4);
 
             QTableWidgetItem *item5 = new QTableWidgetItem(QString::number(res1.at(i).LE));
-            ui->tableWidget->setItem(i, 4, item5);
+            ui->tableWidget->setItem(i, 6, item5);
 
             QTableWidgetItem *item6 = new QTableWidgetItem(QString::number(res1.at(i).hi));
-            ui->tableWidget->setItem(i, 5, item6);
+            ui->tableWidget->setItem(i, 7, item6);
 
             QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(res1.at(i).C1));
-            ui->tableWidget->setItem(i, 6, item7);
+            ui->tableWidget->setItem(i, 8, item7);
 
             QTableWidgetItem *item8 = new QTableWidgetItem(QString::number(res1.at(i).C2));
-            ui->tableWidget->setItem(i, 7, item8);
+            ui->tableWidget->setItem(i, 9, item8);
 
             QTableWidgetItem *item9 = new QTableWidgetItem(QString::number(res1.at(i).ui));
-            ui->tableWidget->setItem(i, 8, item9);
+            ui->tableWidget->setItem(i, 10, item9);
 
             QTableWidgetItem *item10 = new QTableWidgetItem(QString::number(res1.at(i).uvi));
-            ui->tableWidget->setItem(i, 9, item10);
+            ui->tableWidget->setItem(i, 11, item10);
 
 
         }

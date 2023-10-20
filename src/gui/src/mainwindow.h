@@ -51,6 +51,21 @@ private slots:
         return  -(4./2.) * v;
     };
 
+    static float task1_rhs(float x, float v)
+    {
+        return (std::pow(x, 3) + 1)/(std::pow(x, 5) + 1);
+    };
+
+    static float task21_rhs(float x, float v, float y)
+    {
+        return (y * std::abs(y) + y + v);
+    };
+
+    static float task22_rhs(float x, float v, float y)
+    {
+        return v;
+    };
+
 private:
     Ui::MainWindow *ui;
     float h, X;
@@ -62,6 +77,7 @@ private:
     int func;
     int count_plot = 0;
     resultTable res1;
+    float du;
     
 };
 #endif // MAINWINDOW_H
