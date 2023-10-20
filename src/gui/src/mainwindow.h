@@ -54,11 +54,13 @@ private:
     float x_begin, x_end;
     float x_start, y_start;
     float precision;
-    int N;
+    uint N;
     int func;
     int count_plot = 0;
     float du;
     resultTable res1;
+    float A, B, C;
+
     
 };
 #endif // MAINWINDOW_H
