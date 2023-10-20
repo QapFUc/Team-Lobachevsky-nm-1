@@ -1,6 +1,6 @@
 #include "nmlib.hpp"
 
-config utils::make_config(const float& x_min, const float& x_max, const float& x_0, const float& u_0, const float& du_0, const float& step,  const uint& N_max, const bool& LEC, const float& eps, const float& A, const float& B, const float& C) {
+config utils::make_config(const double& x_min, const double& x_max, const double& x_0, const double& u_0, const double& du_0, const double& step,  const uint& N_max, const bool& LEC, const double& eps, const double& A, const double& B, const double& C) {
     LOG_INFO_CLI("Making some config");
 #if defined(DEBUG)
     LOG_DEBUG_CLI("Making config from python data", "Checking arguments");
@@ -13,30 +13,30 @@ config utils::make_config(const float& x_min, const float& x_max, const float& x
     return cfg;
 }
 
-std::function<float(const float&)> make_test_true_sol(const float& x_0, const float& u_0) {
-    return [&](const float& x){ return u_0 * std::exp(2*(x - x_0)); };
+std::function<double(const double&)> make_test_true_sol(const double& x_0, const double& u_0) {
+    return [&](const double& x){ return u_0 * std::exp(2*(x - x_0)); };
 }
 
-void calculate_global_error(resultTable& tbl, std::function<float(const float&)>&& f) {
+void calculate_global_error(resultTable& tbl, std::function<double(const double&)>&& f) {
     for (auto& row : tbl) {
         row.ui = f(row.xi);
         row.uvi = std::abs(row.vi - row.ui); 
     }
 }
 
-float find_max_LE(const resultTable& tbl) {
-    float max = 0.f;
+double find_max_LE(const resultTable& tbl) {
+    double max = 0.f;
 
     for (auto& row : tbl) {
-        float tmp = std::abs(row.LE);
+        double tmp = std::abs(row.LE);
         if (tmp > max) max = tmp;
     }
 
     return max;
 }
 
-float find_max_h(const resultTable& tbl) {
-    float max = 0.f;
+double find_max_h(const resultTable& tbl) {
+    double max = 0.f;
 
     for (auto& row : tbl) {
         if (row.hi > max) max = row.hi;
@@ -45,8 +45,8 @@ float find_max_h(const resultTable& tbl) {
     return max;
 }
 
-float find_min_h(const resultTable& tbl) {
-    float min = tbl.at(0).hi;
+double find_min_h(const resultTable& tbl) {
+    double min = tbl.at(0).hi;
 
     for (auto& row : tbl) {
         if (row.hi < min) min = row.hi;
@@ -55,8 +55,8 @@ float find_min_h(const resultTable& tbl) {
     return min;
 }
 
-float find_max_uvi(const resultTable& tbl) {
-    float max = 0.f;
+double find_max_uvi(const resultTable& tbl) {
+    double max = 0.f;
 
     for (auto& row : tbl) {
         if (row.uvi > max) max = row.uvi;

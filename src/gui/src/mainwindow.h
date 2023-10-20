@@ -49,17 +49,17 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    float h, X;
+    double h, X;
     bool LEC;
-    float x_begin, x_end;
-    float x_start, y_start;
-    float precision;
+    double x_begin, x_end;
+    double x_start, y_start;
+    double precision;
     uint N;
     int func;
     int count_plot = 0;
-    float du;
+    double du;
     resultTable res1;
-    float A, B, C;
+    double A, B, C;
 
     
 };

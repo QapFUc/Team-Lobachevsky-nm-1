@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1684</width>
-    <height>928</height>
+    <width>2031</width>
+    <height>953</height>
    </rect>
   </property>
   <property name="tabletTracking">
@@ -432,12 +432,12 @@ color-bg:rgb(255,255,255)
      <rect>
       <x>980</x>
       <y>40</y>
-      <width>651</width>
+      <width>1041</width>
       <height>701</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;
+     <string notr="true">font: 18pt &quot;FiraCode Nerd Font Propo&quot;;
 color:rgb(0, 0, 0);</string>
     </property>
    </widget>
@@ -634,6 +634,16 @@ color-bg:rgb(255,255,255)</string>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>2031</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <customwidgets>
   <customwidget>

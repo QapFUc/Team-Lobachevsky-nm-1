@@ -27,8 +27,8 @@ MainWindow::MainWindow(QWidget *parent)
     //x_begin = -3;
     //x_end = 3+h;
 
-    //x_begin = (this->ui->lineEdit_start_x->text()).toFloat();
-    //x_end = (this->ui->lineEdit_x_end->text()).toFloat();
+    //x_begin = (this->ui->lineEdit_start_x->text()).toDouble();
+    //x_end = (this->ui->lineEdit_x_end->text()).toDouble();
 
     //this->ui->plot->addGraph();
     //this->ui->plot->graph(0)->addData(x, y);
@@ -47,10 +47,10 @@ void MainWindow::on_button_plot_clicked()
 {
     QVector<double> x, y;
 
-    x_begin = this->ui->lineEdit_x_start->text().toFloat();
-    x_end = this->ui->lineEdit_x_end->text().toFloat();
-    h = this->ui->lineEdit_step->text().toFloat();
-    precision = this->ui->lineEdit_precision->text().toFloat();
+    x_begin = this->ui->lineEdit_x_start->text().toDouble();
+    x_end = this->ui->lineEdit_x_end->text().toDouble();
+    h = this->ui->lineEdit_step->text().toDouble();
+    precision = this->ui->lineEdit_precision->text().toDouble();
 
     for (int i = 0; i < res1.size(); i++)
     {
@@ -103,24 +103,23 @@ void MainWindow::on_exit_button_clicked()
 
 void MainWindow::on_getdata_buttom_clicked()
 {
-    x_begin = this->ui->lineEdit_x_start->text().toFloat();
-    x_end = this->ui->lineEdit_x_end->text().toFloat();
-    h = this->ui->lineEdit_step->text().toFloat();
-    precision = this->ui->lineEdit_precision->text().toFloat();
-    x_start = this->ui->lineEdit_start_x->text().toFloat();
-    y_start = this->ui->lineEdit_start_y->text().toFloat();
-    du = this->ui->lineEdit_last->text().toFloat();
+    x_begin = this->ui->lineEdit_x_start->text().toDouble();
+    x_end = this->ui->lineEdit_x_end->text().toDouble();
+    h = this->ui->lineEdit_step->text().toDouble();
+    precision = this->ui->lineEdit_precision->text().toDouble();
+    x_start = this->ui->lineEdit_start_x->text().toDouble();
+    y_start = this->ui->lineEdit_start_y->text().toDouble();
+    du = this->ui->lineEdit_last->text().toDouble();
     N = this->ui->lineEdit_n->text().toInt();
-    A = this->ui->lineEdit_a->text().toFloat();
-    B = this->ui->lineEdit_b->text().toFloat();
-    C = this->ui->lineEdit_c->text().toFloat();
+    A = this->ui->lineEdit_a->text().toDouble();
+    B = this->ui->lineEdit_b->text().toDouble();
+    C = this->ui->lineEdit_c->text().toDouble();
 
     config cfg = {x_begin, x_end, x_start, y_start, du, h, N, LEC, precision, A, B, C};
 
     switch (func) {
     case 0:
         res1 = task_rk4(test_rhs, cfg);
-        calculate_global_error(res1, make_test_true_sol(cfg.x_0, cfg.u_0));
         break;
     case 1:
         res1 = task_rk4(task1_rhs, cfg);
@@ -192,12 +191,12 @@ void MainWindow::on_button_table_clicked()
 {
     ui->tableWidget->clear();
 
-    ui->tableWidget->setRowCount(res1.size() + 1);
-    ui->tableWidget->setColumnCount(12);
+    ui->tableWidget->setRowCount(res1.size());
+    ui->tableWidget->setColumnCount(13);
 
     std::cout<<res1.size()<<std::endl;
 
-    ui->tableWidget->setHorizontalHeaderLabels(QStringList()<<"xi"<<"vi"<<"yi"<<"v2i"<<"y2i"<<"viv2i"<<"LE"<<"hi"<<"C1"<<"C2"<<"ui"<<"uvi");
+    ui->tableWidget->setHorizontalHeaderLabels(QStringList()<<"xi"<<"vi"<<"yi"<<"v2i"<<"y2i"<<"viv2i"<<"LE"<<"LE/OLE"<<"hi"<<"C1"<<"C2"<<"ui"<<"uvi");
     
     for (int i = 0; i < res1.size(); i++) {
             auto row_tuple = res1.at(i).get_tuple();
@@ -210,21 +209,6 @@ void MainWindow::on_button_table_clicked()
             row_tuple, 
             std::make_index_sequence<std::tuple_size<decltype(row_tuple)>::value>{});
     }
-
-    QTableWidgetItem *item0 = new QTableWidgetItem(QString::number(x_end - res1.at(res1.size() - 1).xi));
-    ui->tableWidget->setItem(res1.size(), 0, item0);
-
-    QTableWidgetItem *item1 = new QTableWidgetItem(QString::number(find_max_LE(res1)));
-    ui->tableWidget->setItem(res1.size(), 6, item1);
-
-    QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(find_max_h(res1)));
-    ui->tableWidget->setItem(res1.size(), 7, item2);
-
-    QTableWidgetItem *item3 = new QTableWidgetItem(QString::number(find_min_h(res1)));
-    ui->tableWidget->setItem(res1.size(), 8, item3);
-
-    QTableWidgetItem *item4 = new QTableWidgetItem(QString::number(find_max_uvi(res1)));
-    ui->tableWidget->setItem(res1.size(), 11, item4);
 }
 
 
