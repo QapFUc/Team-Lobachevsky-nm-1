@@ -68,7 +68,10 @@ void MainWindow::on_button_plot_clicked()
 
 void MainWindow::on_button_clear_clicked()
 {
-    this->ui->plot->graph()->data()->clear();
+    for (int i = 0; i< count_plot; i++) {
+        this->ui->plot->graph(i)->data()->clear();
+    }
+    count_plot = 0;
     this->ui->plot->replot();
     this->ui->plot->update();
     x_begin = 0;
