@@ -130,6 +130,8 @@ void MainWindow::on_getdata_buttom_clicked()
     default:
         break;
     }
+
+    calculate_global_error(res1, test_true_sol);
 }
 
 
@@ -191,7 +193,7 @@ void MainWindow::on_button_table_clicked()
 {
     ui->tableWidget->clear();
 
-    ui->tableWidget->setRowCount(res1.size());
+    ui->tableWidget->setRowCount(res1.size() + 1);
     ui->tableWidget->setColumnCount(12);
 
     std::cout<<res1.size()<<std::endl;
@@ -209,6 +211,18 @@ void MainWindow::on_button_table_clicked()
             row_tuple, 
             std::make_index_sequence<std::tuple_size<decltype(row_tuple)>::value>{});
     }
+
+    QTableWidgetItem *item1 = new QTableWidgetItem(QString::number(find_max_LE(res1)));
+    ui->tableWidget->setItem(res1.size(), 6, item1);
+
+    QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(find_max_h(res1)));
+    ui->tableWidget->setItem(res1.size(), 7, item2);
+
+    QTableWidgetItem *item3 = new QTableWidgetItem(QString::number(find_min_h(res1)))
+    ui->tableWidget->setItem(res1.size(), 8, item3);
+
+    QTableWidgetItem *item4 = new QTableWidgetItem(QString::number(find_max_uvi(res1)))
+    ui->tableWidget->setItem(res1.size(), 11, item4);
 }
 
 

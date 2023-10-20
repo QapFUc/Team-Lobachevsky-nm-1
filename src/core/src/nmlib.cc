@@ -12,3 +12,51 @@ config utils::make_config(const float& x_min, const float& x_max, const float& x
     LOG_INFO_CLI("Configuration done");
     return cfg;
 }
+
+void calculate_global_error(resultTable& tbl, std::function<float(const float&)>&& f) {
+    for (auto& row : tbl) {
+        row.ui = f(row.xi);
+        row.uvi = std::abs(row.vi - row.ui); 
+    }
+}
+
+float find_max_LE(const resultTable& tbl) {
+    float max = 0.f;
+
+    for (auto& row : tbl) {
+        float tmp = std::abs(row.LE);
+        if (tmp > max) max = tmp;
+    }
+
+    return max;
+}
+
+float find_max_h(const resultTable& tbl) {
+    float max = 0.f;
+
+    for (auto& row : tbl) {
+        if (row.hi > max) max = row.hi;
+    }
+
+    return max;
+}
+
+float find_min_h(const resultTable& tbl) {
+    float min = tbl.at(0).hi;
+
+    for (auto& row : tbl) {
+        if (row.hi < min) min = row.hi;
+    }
+
+    return min;
+}
+
+float find_max_uvi(const resultTable& tbl) {
+    float max = 0.f;
+
+    for (auto& row : tbl) {
+        if (row.uvi > max) max = row.uvi;
+    }
+
+    return max;
+}

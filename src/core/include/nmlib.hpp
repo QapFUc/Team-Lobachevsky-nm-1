@@ -101,18 +101,30 @@ static std::function<resultTable(std::function<float(float, float, float)>, conf
 
 static float test_rhs(float x, float v) {
     return  2 * v;
-};
+}
 
-static float task1_rhs(float x, float v)
-{
+static float task1_rhs(float x, float v) {
     return (std::pow(x, 3) + 1)/(std::pow(x, 5) + 1);
-};
+}
 
-static float task21_rhs(float x, float v, float y)
-{
+static float task21_rhs(float x, float v, float y) {
     return (y * std::abs(y) + y + v);
-};
+}
 
 static std::function<float(float, float, float)> make_rhs(float a, float b, float c) {
     return [&](float x, float v, float y){ return (a*y * std::abs(y) + b*y + c*v);};
 }
+
+static float test_true_sol(const float& x) {
+    return std::exp(2*x);
+}
+
+void calculate_global_error(tableRow& tbl, std::function<float(const float&)>&& f);
+
+float find_max_LE(const resultTable& tbl);
+
+float find_max_h(const resultTable& tbl);
+
+float find_min_h(const resultTable& tbl);
+
+float find_max_uvi(const resultTable& tbl);
