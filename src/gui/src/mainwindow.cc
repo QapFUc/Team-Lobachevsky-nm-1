@@ -3,6 +3,7 @@
 #include <qcustomplot.h>
 #include "tablewindow.h"
 #include "nmlib.hpp"
+#include <fstream>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -80,8 +81,9 @@ void MainWindow::on_button_clear_clicked()
 
 void MainWindow::on_button_save_points_clicked()
 {
-
+    
 }
+
 
 
 void MainWindow::on_button_plot_from_file_clicked()
@@ -173,10 +175,49 @@ void MainWindow::on_radioButton_mistake_clicked(bool checked)
 
 void MainWindow::on_button_table_clicked()
 {
-    TableWindow window;
-    window.setData(res1);
-    window.setModal(true);
-    window.exec();
+    ui->tableWidget->clear();
+
+    ui->tableWidget->setRowCount(res1.size());
+    ui->tableWidget->setColumnCount(12);
+
+    std::cout<<res1.size()<<std::endl;
+
+    ui->tableWidget->setHorizontalHeaderLabels(QStringList()<<"xi"<<"vi"<<"yi"<<"v2i"<<"y2i"<<"viv2i"<<"LE"<<"hi"<<"C1"<<"C2"<<"ui"<<"uvi");
+    
+    for (int i = 0; i < res1.size(); i++)
+        {
+            QTableWidgetItem *item1 = new QTableWidgetItem(QString::number(res1.at(i).xi));
+            ui->tableWidget->setItem(i, 0, item1);
+
+            QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(res1.at(i).vi));
+            ui->tableWidget->setItem(i, 1, item2);
+
+            QTableWidgetItem *item3 = new QTableWidgetItem(QString::number(res1.at(i).v2i));
+            ui->tableWidget->setItem(i, 2, item3);
+
+            QTableWidgetItem *item4 = new QTableWidgetItem(QString::number(res1.at(i).viv2i));
+            ui->tableWidget->setItem(i, 3, item4);
+
+            QTableWidgetItem *item5 = new QTableWidgetItem(QString::number(res1.at(i).LE));
+            ui->tableWidget->setItem(i, 4, item5);
+
+            QTableWidgetItem *item6 = new QTableWidgetItem(QString::number(res1.at(i).hi));
+            ui->tableWidget->setItem(i, 5, item6);
+
+            QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(res1.at(i).C1));
+            ui->tableWidget->setItem(i, 6, item7);
+
+            QTableWidgetItem *item8 = new QTableWidgetItem(QString::number(res1.at(i).C2));
+            ui->tableWidget->setItem(i, 7, item8);
+
+            QTableWidgetItem *item9 = new QTableWidgetItem(QString::number(res1.at(i).ui));
+            ui->tableWidget->setItem(i, 8, item9);
+
+            QTableWidgetItem *item10 = new QTableWidgetItem(QString::number(res1.at(i).uvi));
+            ui->tableWidget->setItem(i, 9, item10);
+
+
+        }
 }
 
 
