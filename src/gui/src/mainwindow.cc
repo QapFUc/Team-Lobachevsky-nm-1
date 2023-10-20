@@ -73,11 +73,8 @@ void MainWindow::on_button_clear_clicked()
     count_plot = 0;
     this->ui->plot->replot();
     this->ui->plot->update();
-    x_begin = 0;
-    x_end = 0;
-    h = 0.1;
-    precision = 0;
-    func = 0;
+
+    
 }
 
 
@@ -113,9 +110,12 @@ void MainWindow::on_getdata_buttom_clicked()
     x_start = this->ui->lineEdit_start_x->text().toFloat();
     y_start = this->ui->lineEdit_start_y->text().toFloat();
     du = this->ui->lineEdit_last->text().toFloat();
-    N = (x_end - x_begin)/h; /// @todo remove
+    N = this->ui->lineEdit_n->text().toInt();
+    A = this->ui->lineEdit_a->text().toFloat();
+    B = this->ui->lineEdit_b->text().toFloat();
+    C = this->ui->lineEdit_c->text().toFloat();
 
-    config cfg = {x_begin, x_end, x_start, y_start, du, h, N, LEC, precision};
+    config cfg = {x_begin, x_end, x_start, y_start, du, h, N, LEC, precision, A, B, C};
 
     switch (func) {
     case 0:
@@ -125,7 +125,7 @@ void MainWindow::on_getdata_buttom_clicked()
         res1 = task_rk4(task1_rhs, cfg);
         break;
     case 2:
-        res1 = task_rk4_lseq(task21_rhs, cfg);
+        res1 = task_rk4_lseq(make_rhs(A, B, C), cfg);
         break;
     default:
         break;

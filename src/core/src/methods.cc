@@ -118,6 +118,9 @@ resultTable utils::RK4_SOE(std::function<float(float, float, float)> rhs1, std::
     xi = cfg.x_0;
     x_min = cfg.x_min;
     x_max = cfg.x_max;
+    float a = cfg.A;
+    float b = cfg.B;
+    float c = cfg.C;
     ui = cfg.u_0;
     yi = cfg.du_0;
     stepi = cfg.step;
