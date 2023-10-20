@@ -73,6 +73,8 @@ void MainWindow::on_button_clear_clicked()
     count_plot = 0;
     this->ui->plot->replot();
     this->ui->plot->update();
+
+    
 }
 
 
