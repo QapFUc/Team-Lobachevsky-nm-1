@@ -36,7 +36,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, const config& cfg)
         int i = 0;
         float u1, u2;
         float viv2i, LocalError;
-        while (xi >= x_min && xi <= x_max && i < N_max) {
+        while (xi > x_min && xi+stepi < x_max && i < N_max) {
             u1 = StepRK4(rhs, xi, ui, stepi);
             u2 = StepRK4(rhs, xi, ui, stepi/2);
             u2 = StepRK4(rhs, xi + stepi/2, u2, stepi/2);
@@ -72,7 +72,7 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, const config& cfg)
 
     } else if (not(cfg.LEC)){
         int i = 0;
-        while (xi >= x_min && xi <= x_max && i < N_max) {
+        while (xi > x_min && xi+stepi < x_max && i < N_max) {
             ui = StepRK4(rhs, xi, ui, stepi);
             xi = xi + stepi;
             i++;
@@ -129,7 +129,7 @@ resultTable utils::RK4_SOE(std::function<float(float, float, float)> rhs1, std::
     if (cfg.LEC) {
         float LocalError, viv2i;
         int i = 0;
-        while (xi >= x_min && xi <= x_max && i < N_max) {
+        while (xi > x_min && xi+stepi < x_max && i < N_max) {
             //LOG_DEBUG_CLI("Start RK4_SOE with localstecpcontrol", cfg);
             tmp1 = StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi);
             tmp2 = StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi/2);
@@ -173,7 +173,7 @@ resultTable utils::RK4_SOE(std::function<float(float, float, float)> rhs1, std::
     } else if (not(cfg.LEC)){
         //LOG_DEBUG_CLI("Start RK4_SOE without localstecpcontrol", cfg);
         int i = 0;
-        while (xi >= x_min && xi <= x_max && i < N_max) {
+        while (xi > x_min && xi+stepi < x_max && i < N_max) {
             tmp1 = StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi);
             yi = tmp1.at(1);
             ui = tmp1.at(0);
