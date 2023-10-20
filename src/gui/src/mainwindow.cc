@@ -218,10 +218,10 @@ void MainWindow::on_button_table_clicked()
     QTableWidgetItem *item2 = new QTableWidgetItem(QString::number(find_max_h(res1)));
     ui->tableWidget->setItem(res1.size(), 7, item2);
 
-    QTableWidgetItem *item3 = new QTableWidgetItem(QString::number(find_min_h(res1)))
+    QTableWidgetItem *item3 = new QTableWidgetItem(QString::number(find_min_h(res1)));
     ui->tableWidget->setItem(res1.size(), 8, item3);
 
-    QTableWidgetItem *item4 = new QTableWidgetItem(QString::number(find_max_uvi(res1)))
+    QTableWidgetItem *item4 = new QTableWidgetItem(QString::number(find_max_uvi(res1)));
     ui->tableWidget->setItem(res1.size(), 11, item4);
 }
 

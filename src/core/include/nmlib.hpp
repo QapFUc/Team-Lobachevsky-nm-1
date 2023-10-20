@@ -119,7 +119,7 @@ static float test_true_sol(const float& x) {
     return std::exp(2*x);
 }
 
-void calculate_global_error(tableRow& tbl, std::function<float(const float&)>&& f);
+void calculate_global_error(resultTable& tbl, std::function<float(const float&)>&& f);
 
 float find_max_LE(const resultTable& tbl);
 
