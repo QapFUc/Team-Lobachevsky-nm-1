@@ -27,8 +27,8 @@ struct tableRow {
     float uvi;
     
 
-    std::tuple<float, float, float, float, float, float, float, uint, uint, float, float> get_tuple() {
-        return std::tuple<float, float, float, float, float, float, float, uint, uint, float, float> (xi, vi, yi, v2i, viv2i, LE, hi, C1, C2, ui, uvi);}
+    std::tuple<float, float, float, float, float, float, float, float, uint, uint, float, float> get_tuple() {
+        return std::tuple<float, float, float, float, float, float, float, float, uint, uint, float, float> (xi, vi, yi, v2i, y2i, viv2i, LE, hi, C1, C2, ui, uvi);}
 
 
     friend std::ostream& operator<< (std::ostream& os, const tableRow& row) {
@@ -115,9 +115,8 @@ static std::function<float(float, float, float)> make_rhs(float a, float b, floa
     return [&](float x, float v, float y){ return (a*y * std::abs(y) + b*y + c*v);};
 }
 
-static float test_true_sol(const float& x) {
-    return std::exp(2*x);
-}
+std::function<float(const float&)> make_test_true_sol(const float& x_0, const float& u_0);
+
 
 void calculate_global_error(resultTable& tbl, std::function<float(const float&)>&& f);
 

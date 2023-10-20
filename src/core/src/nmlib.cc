@@ -13,6 +13,10 @@ config utils::make_config(const float& x_min, const float& x_max, const float& x
     return cfg;
 }
 
+std::function<float(const float&)> make_test_true_sol(const float& x_0, const float& u_0) {
+    return [&](const float& x){ return u_0 * std::exp(2*(x - x_0)); };
+}
+
 void calculate_global_error(resultTable& tbl, std::function<float(const float&)>&& f) {
     for (auto& row : tbl) {
         row.ui = f(row.xi);

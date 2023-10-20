@@ -120,6 +120,7 @@ void MainWindow::on_getdata_buttom_clicked()
     switch (func) {
     case 0:
         res1 = task_rk4(test_rhs, cfg);
+        calculate_global_error(res1, make_test_true_sol(cfg.x_0, cfg.u_0));
         break;
     case 1:
         res1 = task_rk4(task1_rhs, cfg);
@@ -130,8 +131,6 @@ void MainWindow::on_getdata_buttom_clicked()
     default:
         break;
     }
-
-    calculate_global_error(res1, test_true_sol);
 }
 
 
@@ -211,6 +210,9 @@ void MainWindow::on_button_table_clicked()
             row_tuple, 
             std::make_index_sequence<std::tuple_size<decltype(row_tuple)>::value>{});
     }
+
+    QTableWidgetItem *item0 = new QTableWidgetItem(QString::number(x_end - res1.at(res1.size() - 1).xi));
+    ui->tableWidget->setItem(res1.size(), 0, item0);
 
     QTableWidgetItem *item1 = new QTableWidgetItem(QString::number(find_max_LE(res1)));
     ui->tableWidget->setItem(res1.size(), 6, item1);
