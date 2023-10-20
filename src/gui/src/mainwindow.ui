@@ -6,34 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1766</width>
-    <height>829</height>
+    <width>1470</width>
+    <height>920</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="exit_button">
-    <property name="geometry">
-     <rect>
-      <x>1650</x>
-      <y>10</y>
-      <width>100</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Exit</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
       <x>30</x>
       <y>10</y>
       <width>191</width>
-      <height>141</height>
+      <height>241</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -65,13 +52,20 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="button_table">
+       <property name="text">
+        <string>Open a table </string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
    <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>613</y>
+      <y>540</y>
       <width>191</width>
       <height>102</height>
      </rect>
@@ -99,16 +93,109 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget">
+   <widget class="QWidget" name="horizontalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>711</y>
-      <width>411</width>
+      <x>30</x>
+      <y>270</y>
+      <width>191</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_x">
+       <property name="text">
+        <string>x:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_x_start"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_x_end"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_4">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>500</y>
+      <width>191</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_start">
+       <property name="text">
+        <string>Start:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_start_x"/>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_start_y"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_5">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>790</y>
+      <width>186</width>
       <height>51</height>
      </rect>
     </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QLabel" name="label_mistake">
+       <property name="text">
+        <string>Local ERROR control</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton_mistake">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QCustomPlot" name="plot" native="true">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>50</y>
+      <width>551</width>
+      <height>691</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>790</y>
+      <width>411</width>
+      <height>61</height>
+     </rect>
+    </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Set color:</string>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QRadioButton" name="radioButton_blue">
        <property name="text">
@@ -139,127 +226,64 @@
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QPushButton" name="exit_button">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>720</y>
-      <width>91</width>
-      <height>41</height>
+      <x>730</x>
+      <y>800</y>
+      <width>100</width>
+      <height>32</height>
      </rect>
     </property>
     <property name="text">
-     <string>Color for plot</string>
+     <string>Exit</string>
     </property>
    </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_2">
+   <widget class="QPushButton" name="getdata_buttom">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>660</y>
+      <width>100</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>get data</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>501</y>
+      <y>320</y>
       <width>191</width>
-      <height>26</height>
+      <height>32</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="label_x">
-       <property name="text">
-        <string>x:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_x_start"/>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_x_end"/>
-     </item>
-    </layout>
+    <item>
+     <property name="text">
+      <string>test task</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>task 1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>task 2</string>
+     </property>
+    </item>
    </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_3">
+   <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>531</y>
-      <width>191</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QLabel" name="label_y">
-       <property name="text">
-        <string>y:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_y_start"/>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_y_end"/>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_4">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>571</y>
-      <width>191</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <widget class="QLabel" name="label_start">
-       <property name="text">
-        <string>Start:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_start_x"/>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_start_y"/>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_5">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>710</y>
-      <width>186</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
-     <item>
-      <widget class="QLabel" name="label_mistake">
-       <property name="text">
-        <string>Local ERROR control</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="radioButton_mistake">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QCustomPlot" name="plot" native="true">
-    <property name="geometry">
-     <rect>
-      <x>230</x>
-      <y>70</y>
-      <width>1501</width>
-      <height>591</height>
+      <x>905</x>
+      <y>41</y>
+      <width>531</width>
+      <height>701</height>
      </rect>
     </property>
    </widget>
@@ -269,8 +293,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1766</width>
-     <height>20</height>
+     <width>1470</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuhello">
