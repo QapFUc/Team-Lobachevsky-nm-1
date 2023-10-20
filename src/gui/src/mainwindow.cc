@@ -78,6 +78,9 @@ void MainWindow::on_button_clear_clicked()
     h = 0.1;
     precision = 0;
     func = 0;
+    A = 1;
+    B = 1;
+    C = 1;
 }
 
 
@@ -113,7 +116,10 @@ void MainWindow::on_getdata_buttom_clicked()
     x_start = this->ui->lineEdit_start_x->text().toFloat();
     y_start = this->ui->lineEdit_start_y->text().toFloat();
     du = this->ui->lineEdit_last->text().toFloat();
-    N = (x_end - x_begin)/h; /// @todo remove
+    N = this->ui->lineEdit_n->text().toInt();
+    A = this->ui->lineEdit_a->text().toFloat();
+    B = this->ui->lineEdit_b->text().toFloat();
+    C = this->ui->lineEdit_c->text().toFloat();
 
     config cfg = {x_begin, x_end, x_start, y_start, du, h, N, LEC, precision};
 
