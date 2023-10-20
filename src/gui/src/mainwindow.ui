@@ -20,7 +20,7 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">color:rgb(255, 255, 255)</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -183,7 +183,8 @@ color-bg:rgb(255,255,255)</string>
      <item>
       <widget class="QLineEdit" name="lineEdit_x_start">
        <property name="styleSheet">
-        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;</string>
+        <string notr="true">font: 9pt &quot;FiraCode Nerd Font Propo&quot;;
+color:rgb(0, 0, 0)</string>
        </property>
       </widget>
      </item>
