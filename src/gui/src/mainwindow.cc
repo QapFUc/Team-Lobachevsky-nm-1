@@ -73,14 +73,6 @@ void MainWindow::on_button_clear_clicked()
     count_plot = 0;
     this->ui->plot->replot();
     this->ui->plot->update();
-    x_begin = 0;
-    x_end = 0;
-    h = 0.1;
-    precision = 0;
-    func = 0;
-    A = 1;
-    B = 1;
-    C = 1;
 }
 
 

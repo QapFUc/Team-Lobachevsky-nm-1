@@ -86,19 +86,19 @@ resultTable utils::RK4(std::function<float(float,float)> rhs, const config& cfg)
     }
 }
 
-inline std::vector<float> utils::StepRK4_SOE(std::function<float(float,float,float)> rhs1,std::function<float(float,float,float)> rhs2, const float& x, const float& u, const float& y, const float& step) {
+inline std::vector<float> utils::StepRK4_SOE(std::function<float(float,float,float, float, float, float)> rhs1,std::function<float(float,float,float)> rhs2, const float& x, const float& u, const float& y, const float& step, const float& a, const float& b, const float& c) {
 
     LOG_DEBUG_CLI("Start StepRK4_SOE step with following config", x, u, step);
 
     float new_u, new_y, k11, k12, k21, k22, k31, k32, k41, k42;
     std::vector<float> res;
-    k11 = rhs1(x, u, y);
+    k11 = rhs1(x, u, y, a, b, c);
     k12 = rhs2(x, u, y);
-    k21 = rhs1(x + step/2, u + step/2 * k11, y + step/2 * k12);
+    k21 = rhs1(x + step/2, u + step/2 * k11, y + step/2 * k12, a, b, c);
     k22 = rhs2(x + step/2, u + step/2 * k11, y + step/2 * k12);
-    k31 = rhs1(x + step/2, u + step/2 * k21, y + step/2 * k22);
+    k31 = rhs1(x + step/2, u + step/2 * k21, y + step/2 * k22, a, b, c);
     k32 = rhs2(x + step/2, u + step/2 * k21, y + step/2 * k22);
-    k41 = rhs1(x + step, u + step * k31, y + step * k32);
+    k41 = rhs1(x + step, u + step * k31, y + step * k32, a, b, c);
     k42 = rhs2(x + step, u + step * k31, y + step * k32);
     new_u = u + step/6 * (k11 + (2 * k21) + (2 * k31) + k41);
     new_y = y + step/6 * (k12 + (2 * k22) + (2 * k32) + k42);
@@ -107,7 +107,7 @@ inline std::vector<float> utils::StepRK4_SOE(std::function<float(float,float,flo
     return(res);
 }
 
-resultTable utils::RK4_SOE(std::function<float(float, float, float)> rhs1, std::function<float(float, float, float)> rhs2, const config& cfg) {
+resultTable utils::RK4_SOE(std::function<float(float, float, float, float, float, float)> rhs1, std::function<float(float, float, float)> rhs2, const config& cfg) {
     LOG_INFO_CLI("Start RK4_SOE with following config", cfg);
     resultTable table;
     float xi, x_min, x_max, ui, yi, stepi, N_max, eps;
@@ -118,6 +118,9 @@ resultTable utils::RK4_SOE(std::function<float(float, float, float)> rhs1, std::
     xi = cfg.x_0;
     x_min = cfg.x_min;
     x_max = cfg.x_max;
+    float a = cfg.A;
+    float b = cfg.B;
+    float c = cfg.C;
     ui = cfg.u_0;
     yi = cfg.du_0;
     stepi = cfg.step;
@@ -128,9 +131,9 @@ resultTable utils::RK4_SOE(std::function<float(float, float, float)> rhs1, std::
         int i = 0;
         while (xi >= x_min && xi <= x_max && i < N_max) {
             //LOG_DEBUG_CLI("Start RK4_SOE with localstecpcontrol", cfg);
-            tmp1 = utils::StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi);
-            tmp2 = utils::StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi/2);
-            tmp2 = utils::StepRK4_SOE(rhs1, rhs2, xi, tmp2.at(0), tmp2.at(1), stepi/2);
+            tmp1 = utils::StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi, a, b, c);
+            tmp2 = utils::StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi/2, a, b, c);
+            tmp2 = utils::StepRK4_SOE(rhs1, rhs2, xi, tmp2.at(0), tmp2.at(1), stepi/2, a, b, c);
             LocalError = std::max(std::abs(tmp1.at(0) - tmp2.at(0)), std::abs(tmp1.at(1)-tmp2.at(1))) / 15;
             //LOG_DEBUG_CLI("tmp generated", cfg);
             if (LocalError < eps/std::pow(2,5)) {
@@ -171,7 +174,7 @@ resultTable utils::RK4_SOE(std::function<float(float, float, float)> rhs1, std::
         //LOG_DEBUG_CLI("Start RK4_SOE without localstecpcontrol", cfg);
         int i = 0;
         while (xi >= x_min && xi <= x_max && i < N_max) {
-            tmp1 = utils::StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi);
+            tmp1 = utils::StepRK4_SOE(rhs1, rhs2, xi, ui, yi, stepi, a, b, c);
             yi = tmp1.at(1);
             ui = tmp1.at(0);
             xi = xi + stepi;
@@ -185,6 +188,6 @@ resultTable utils::RK4_SOE(std::function<float(float, float, float)> rhs1, std::
     }
 }
 
-resultTable utils::RK4_LS(std::function<float(float, float, float)> rhs, const config& cfg) {
+resultTable utils::RK4_LS(std::function<float(float, float, float, float, float, float)> rhs, const config& cfg) {
     return utils::RK4_SOE(rhs, [&](float x, float u, float du){ return u; }, cfg);
 }

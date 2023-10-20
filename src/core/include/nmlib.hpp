@@ -55,7 +55,7 @@ struct config {
     float step; // step
     uint N_max; // Maximum num for iterations
 
-    bool LEC = 1; // Is there control for local error
+    bool LEC = 1 ; // Is there control for local error
     float eps = 0.f; // Epsilon for local error control
 
     float A;
@@ -72,21 +72,21 @@ struct config {
 
 namespace utils {
 /// @brief make config from python input
-config make_config(const float& x_min, const float& x_max, const float& x_0, const float& u_0, const float& du_0, const float& step,  const uint& N_max, const bool& LEC, const float& eps);
+config make_config(const float& x_min, const float& x_max, const float& x_0, const float& u_0, const float& du_0, const float& step,  const uint& N_max, const bool& LEC, const float& eps, const float& A, const float& B, const float& C);
 
 /// numerical method 
 resultTable RK4(std::function<float(float,float)> rhs, const config& cfg);
 
 /// @brief  RK4 for System Of two Equations 
-resultTable RK4_SOE(std::function<float(float, float, float)> rhs1, std::function<float(float, float, float)> rhs2, const config& cfg);
+resultTable RK4_SOE(std::function<float(float, float, float, float, float, float)> rhs1, std::function<float(float, float, float)> rhs2, const config& cfg);
 
 /// step for method
 inline float StepRK4(std::function<float(float,float)> rhs, const float& x, const float& u, const float& step);
 
 /// step RK4 for System Of two Equations 
-inline std::vector<float> StepRK4_SOE(std::function<float(float,float,float)> rhs1, std::function<float(float,float,float)> rhs2, const float& x, const float& u, const float& y, const float& step);
+inline std::vector<float> StepRK4_SOE(std::function<float(float, float, float, float, float, float)> rhs1, std::function<float(float,float,float)> rhs2, const float& x, const float& u, const float& y, const float& step, const float& a, const float& b, const float& c );
 
-resultTable RK4_LS(std::function<float(float,float, float)> rhs, const config& cfg);
+resultTable RK4_LS(std::function<float(float, float, float, float, float, float)> rhs, const config& cfg);
 
 } // namespace utils
 
