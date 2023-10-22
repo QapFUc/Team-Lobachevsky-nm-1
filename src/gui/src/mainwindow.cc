@@ -115,6 +115,7 @@ void MainWindow::on_getdata_buttom_clicked()
     B = this->ui->lineEdit_b->text().toDouble();
     C = this->ui->lineEdit_c->text().toDouble();
 
+
     config cfg = {x_begin, x_end, x_start, y_start, du, h, N, LEC, precision, A, B, C};
 
     switch (func) {
@@ -125,7 +126,8 @@ void MainWindow::on_getdata_buttom_clicked()
         res1 = task_rk4(task1_rhs, cfg);
         break;
     case 2:
-        res1 = task_rk4_lseq(make_rhs(A, B, C), cfg);
+        static auto task2_rhs = [&](double x, double v, double y){return (A*y * std::abs(y) + B*y + C*v);};
+        res1 = task_rk4_lseq(task2_rhs, cfg);
         break;
     default:
         break;

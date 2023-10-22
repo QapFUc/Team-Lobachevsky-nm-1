@@ -112,9 +112,6 @@ static double task21_rhs(double x, double v, double y) {
     return (y * std::abs(y) + y + v);
 }
 
-static std::function<double(double, double, double)> make_rhs(double a, double b, double c) {
-    return [&](double x, double v, double y){ return (a*y * std::abs(y) + b*y + c*v);};
-}
 
 std::function<double(const double&)> make_test_true_sol(const double& x_0, const double& u_0);
 
