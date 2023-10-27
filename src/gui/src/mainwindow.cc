@@ -21,18 +21,6 @@ MainWindow::MainWindow(QWidget *parent)
     this->ui->plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 
     func = 0;
-
-    
-
-    //x_begin = -3;
-    //x_end = 3+h;
-
-    //x_begin = (this->ui->lineEdit_start_x->text()).toDouble();
-    //x_end = (this->ui->lineEdit_x_end->text()).toDouble();
-
-    //this->ui->plot->addGraph();
-    //this->ui->plot->graph(0)->addData(x, y);
-    //this->ui->plot->replot();
 }
 
 MainWindow::~MainWindow()
@@ -59,6 +47,12 @@ void MainWindow::on_button_plot_clicked()
     }
 
     this->ui->plot->addGraph();
+
+    QPen pen;
+    pen.setWidth(2);
+    pen.setColor(col);
+    this->ui->plot->graph(count_plot)->setPen(pen);
+
     this->ui->plot->graph(count_plot)->addData(x, y);
     this->ui->plot->replot();
     count_plot++;
@@ -139,10 +133,7 @@ void MainWindow::on_radioButton_blue_clicked(bool checked)
 {
     if(checked)
     {
-        QPen pen;
-        pen.setWidth(2);
-        pen.setColor(QColor(0,0,255));
-        ui->plot->graph(count_plot - 1)->setPen(pen);
+        col = QColor(0, 0, 255);
     }
 }
 
@@ -151,10 +142,7 @@ void MainWindow::on_radioButton_red_clicked(bool checked)
 {
     if(checked)
     {
-        QPen pen;
-        pen.setWidth(2);
-        pen.setColor(QColor(255, 0, 0));
-        ui->plot->graph(count_plot - 1)->setPen(pen);
+        col = QColor(255, 0, 0);
     }
 }
 
@@ -163,10 +151,7 @@ void MainWindow::on_radioButton_green_clicked(bool checked)
 {
     if(checked)
     {
-        QPen pen;
-        pen.setWidth(2);
-        pen.setColor(QColor(0, 255, 0));
-        ui->plot->graph(count_plot - 1)->setPen(pen);;
+        col = QColor(0, 255, 0);
     }
 }
 
@@ -175,10 +160,7 @@ void MainWindow::on_radioButton_violet_clicked(bool checked)
 {
     if(checked)
     {
-        QPen pen;
-        pen.setWidth(2);
-        pen.setColor(QColor(105, 0, 198));
-        ui->plot->graph(count_plot - 1)->setPen(pen);
+        col = QColor(105, 0, 198);
     }
 }
 

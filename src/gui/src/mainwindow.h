@@ -50,7 +50,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     double h, X;
-    bool LEC;
+    bool LEC = false;
     double x_begin, x_end;
     double x_start, y_start;
     double precision;
@@ -59,8 +59,7 @@ private:
     int count_plot = 0;
     double du;
     resultTable res1;
-    double A, B, C;
-
-    
+    double A, B, C;   
+    QColor col = QColor(0, 0, 255); 
 };
 #endif // MAINWINDOW_H
