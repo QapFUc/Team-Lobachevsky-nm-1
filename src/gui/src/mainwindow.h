@@ -2,23 +2,23 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QWidget>
 #include <QVector>
+#include <QWidget>
 
 #include "nmlib.hpp"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui {
+class MainWindow;
+}
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
-    
 
 private slots:
     void on_button_plot_clicked();
@@ -48,7 +48,7 @@ private slots:
     void on_comboBox_activated(int index);
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow* ui;
     double h, X;
     bool LEC = false;
     double x_begin, x_end;
@@ -59,7 +59,7 @@ private:
     int count_plot = 0;
     double du;
     resultTable res1;
-    double A, B, C;   
-    QColor col = QColor(0, 0, 255); 
+    double A, B, C;
+    QColor col = QColor(0, 0, 255);
 };
-#endif // MAINWINDOW_H
+#endif  // MAINWINDOW_H

@@ -1,15 +1,11 @@
-#include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include <qcustomplot.h>
-#include "tablewindow.h"
+#include "mainwindow.h"
 #include "nmlib.hpp"
+#include "tablewindow.h"
 #include <fstream>
+#include <qcustomplot.h>
 
-
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
     this->ui->plot->xAxis->setLabel("X");
@@ -23,16 +19,11 @@ MainWindow::MainWindow(QWidget *parent)
     func = 0;
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
 
-
-
-
-void MainWindow::on_button_plot_clicked()
-{
+void MainWindow::on_button_plot_clicked() {
     QVector<double> x, y;
 
     x_begin = this->ui->lineEdit_x_start->text().toDouble();
@@ -40,8 +31,7 @@ void MainWindow::on_button_plot_clicked()
     h = this->ui->lineEdit_step->text().toDouble();
     precision = this->ui->lineEdit_precision->text().toDouble();
 
-    for (int i = 0; i < res1.size(); i++)
-    {
+    for (int i = 0; i < res1.size(); i++) {
         x.push_back(res1.at(i).xi);
         y.push_back(res1.at(i).vi);
     }
@@ -58,45 +48,32 @@ void MainWindow::on_button_plot_clicked()
     count_plot++;
 }
 
-
-void MainWindow::on_button_clear_clicked()
-{
-    for (int i = 0; i< count_plot; i++) {
+void MainWindow::on_button_clear_clicked() {
+    for (int i = 0; i < count_plot; i++) {
         this->ui->plot->graph(i)->data()->clear();
     }
     count_plot = 0;
     this->ui->plot->replot();
     this->ui->plot->update();
-
-    
 }
 
+void MainWindow::on_button_save_points_clicked() {
+    std::ofstream fs("table.txt");
 
-void MainWindow::on_button_save_points_clicked()
-{
-    
+    fs << "####__HEAD__####" << '\n';
+    dumpTableInFile(fs, res1);
 }
 
+void MainWindow::on_button_plot_from_file_clicked() {}
 
-
-void MainWindow::on_button_plot_from_file_clicked()
-{
-
-}
-
-
-void MainWindow::on_exit_button_clicked()
-{
+void MainWindow::on_exit_button_clicked() {
     QMessageBox::StandardButton exit = QMessageBox::question(this, " ", "you wanna exit?", QMessageBox::Yes | QMessageBox::No);
-    if (exit == QMessageBox::Yes)
-    {
+    if (exit == QMessageBox::Yes) {
         QApplication::quit();
     }
 }
 
-
-void MainWindow::on_getdata_buttom_clicked()
-{
+void MainWindow::on_getdata_buttom_clicked() {
     x_begin = this->ui->lineEdit_x_start->text().toDouble();
     x_end = this->ui->lineEdit_x_end->text().toDouble();
     h = this->ui->lineEdit_step->text().toDouble();
@@ -109,8 +86,7 @@ void MainWindow::on_getdata_buttom_clicked()
     B = this->ui->lineEdit_b->text().toDouble();
     C = this->ui->lineEdit_c->text().toDouble();
 
-
-    config cfg = {x_begin, x_end, x_start, y_start, du, h, N, LEC, precision, A, B, C};
+    config cfg = { x_begin, x_end, x_start, y_start, du, h, N, LEC, precision, A, B, C };
 
     switch (func) {
     case 0:
@@ -120,7 +96,9 @@ void MainWindow::on_getdata_buttom_clicked()
         res1 = task_rk4(task1_rhs, cfg);
         break;
     case 2:
-        static auto task2_rhs = [&](double x, double v, double y){return (A*y * std::abs(y) + B*y + C*v);};
+        static auto task2_rhs = [&](double x, double v, double y) {
+            return (A * y * std::abs(y) + B * y + C * v);
+        };
         res1 = task_rk4_lseq(task2_rhs, cfg);
         break;
     default:
@@ -128,76 +106,70 @@ void MainWindow::on_getdata_buttom_clicked()
     }
 }
 
-
-void MainWindow::on_radioButton_blue_clicked(bool checked)
-{
-    if(checked)
-    {
+void MainWindow::on_radioButton_blue_clicked(bool checked) {
+    if (checked) {
         col = QColor(0, 0, 255);
     }
 }
 
-
-void MainWindow::on_radioButton_red_clicked(bool checked)
-{
-    if(checked)
-    {
+void MainWindow::on_radioButton_red_clicked(bool checked) {
+    if (checked) {
         col = QColor(255, 0, 0);
     }
 }
 
-
-void MainWindow::on_radioButton_green_clicked(bool checked)
-{
-    if(checked)
-    {
+void MainWindow::on_radioButton_green_clicked(bool checked) {
+    if (checked) {
         col = QColor(0, 255, 0);
     }
 }
 
-
-void MainWindow::on_radioButton_violet_clicked(bool checked)
-{
-    if(checked)
-    {
+void MainWindow::on_radioButton_violet_clicked(bool checked) {
+    if (checked) {
         col = QColor(105, 0, 198);
     }
 }
 
-
-void MainWindow::on_radioButton_mistake_clicked(bool checked)
-{
+void MainWindow::on_radioButton_mistake_clicked(bool checked) {
     LEC = checked;
 }
 
-
-void MainWindow::on_button_table_clicked()
-{
+void MainWindow::on_button_table_clicked() {
     ui->tableWidget->clear();
 
     ui->tableWidget->setRowCount(res1.size());
     ui->tableWidget->setColumnCount(13);
 
-    std::cout<<res1.size()<<std::endl;
+    std::cout << res1.size() << std::endl;
 
-    ui->tableWidget->setHorizontalHeaderLabels(QStringList()<<"xi"<<"vi"<<"yi"<<"v2i"<<"y2i"<<"viv2i"<<"LE"<<"LE/OLE"<<"hi"<<"C1"<<"C2"<<"ui"<<"uvi");
-    
+    ui->tableWidget->setHorizontalHeaderLabels(QStringList() << "xi"
+                                                             << "vi"
+                                                             << "yi"
+                                                             << "v2i"
+                                                             << "y2i"
+                                                             << "viv2i"
+                                                             << "LE"
+                                                             << "LE/OLE"
+                                                             << "hi"
+                                                             << "C1"
+                                                             << "C2"
+                                                             << "ui"
+                                                             << "uvi");
+
     for (int i = 0; i < res1.size(); i++) {
-            auto row_tuple = res1.at(i).get_tuple();
-            int j = 0;
-            apply_elemwise([&](const auto& elem){ 
-                QTableWidgetItem *item = new QTableWidgetItem(QString::number(elem));
+        auto row_tuple = res1.at(i).get_tuple();
+        int j = 0;
+        apply_elemwise(
+            [&](const auto& elem) {
+                QTableWidgetItem* item = new QTableWidgetItem(QString::number(elem));
                 ui->tableWidget->setItem(i, j, item);
                 j++;
-            }, 
-            row_tuple, 
+            },
+            row_tuple,
             std::make_index_sequence<std::tuple_size<decltype(row_tuple)>::value>{});
     }
 }
 
-
-void MainWindow::on_comboBox_activated(int index)
-{
+void MainWindow::on_comboBox_activated(int index) {
     func = index;
 }
-

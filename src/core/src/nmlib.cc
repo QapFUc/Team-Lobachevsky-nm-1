@@ -64,3 +64,9 @@ double find_max_uvi(const resultTable& tbl) {
 
     return max;
 }
+
+void dumpTableInFile(std::ofstream& os, const resultTable& tbl) {
+    for (const auto& row : tbl) {
+        os << row << '\n';
+    }
+}
